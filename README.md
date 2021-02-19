@@ -54,8 +54,9 @@
 
 GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerrain.github.io/LearnJavaToFindAJob/#/)
 
-Gittee Pages ： [https://rainyudianxx.gitee.io/learnjavatofindajob](https://rainyudianxx.gitee.io/learnjavatofindajob)（国内访问快）
+Gittee Pages ：（国内访问快）
 
 
 
 最后，希望各位可以帮我点一个 star :star: ，这样我就更有动力更新了。 
+
