@@ -52,9 +52,9 @@
 
 服务器端：[https://purejava.baimuxym.cn/](https://purejava.baimuxym.cn/) 
 
-GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerrain.github.io/LearnJavaToFindAJob/#/)
+GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerrain.github.io/PureJavaCoderRoad/#/)
 
-Gittee Pages ：（国内访问快）
+Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rainyudianxx.gitee.io/purejavacoderroad/#/)（国内访问快）
 
 
 
