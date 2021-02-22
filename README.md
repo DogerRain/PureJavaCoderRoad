@@ -34,7 +34,8 @@
 
 > 文件太大，右击 `在新标签页打开图片`
 
-![HelloCoder](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/HelloCode.png)
+
+ <img src="https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/HelloCode.png" />
 
 
 
