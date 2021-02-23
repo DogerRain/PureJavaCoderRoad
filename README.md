@@ -35,9 +35,7 @@
 > 文件太大，右击 `在新标签页打开图片`
 
 
- <img src="https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/HelloCode.png" />
-
-![](思维导图\20210131Java学习路线公众号HelloCoder.png)
+![HelloCoder](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/20210223r-mohu-Java学习路线公众号HelloCode.png)
 
 ## 更新时间线
 
