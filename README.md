@@ -34,8 +34,9 @@
 
 > 文件太大，右击 `在新标签页打开图片`
 
-
 ![HelloCoder](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/20210223r-mohu-Java学习路线公众号HelloCode.png)
+
+<a href = "https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/20210223r-mohu-Java学习路线公众号HelloCode.png" target="_blank">点击访问思维导图</a>
 
 ## 更新时间线
 
