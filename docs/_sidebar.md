@@ -1,4 +1,4 @@
-* **Java教程**
+* <font style="color:black;font-size:20px;font-weight:2px">Java基础教程</font>
     * 1、Java基础
       * Java入门
         * [Java介绍](articles\Java基础\Java入门\Java介绍.md)
@@ -35,24 +35,36 @@
         * [Java异常](articles\异常处理\1、Java异常.md)
         * [异常处理](articles\异常处理\2、异常处理.md)
         * [自定义异常](articles\异常处理\3、自定义异常.md)
-    * 4、Java进阶
-      * [Java常用类](articles\Java进阶\常用类\Java常用类.md)
-        * [String类](articles\Java进阶\常用类\String.md)
-        * [StringBuilder、StringBuffer、StringJoiner](articles\Java进阶\常用类\StringBuilder、StringBuffer、StringJoiner.md)
-        * [包装类型](articles\Java进阶\常用类\包装类型.md)
-        * [BigDecima类](articles\Java进阶\常用类\BigDecimal.md)
-        * [Math类](articles\Java进阶\常用类\Math类.md)
-        * [日期类](articles\Java进阶\常用类\日期类.md)
-        * [File类](articles\Java进阶\常用类\File类.md)
-      * [Java反射](articles\Java进阶\反射\Java反射.md)
-      * [Java集合](articles\Java进阶\集合\集合类的介绍.md)
-        * [Map](articles\Java进阶\集合\Map.md)
-        * [List](articles\Java进阶\集合\List.md)
-        * [Set](articles\Java进阶\集合\Set.md)
-        * [HashCode和equals](articles\Java进阶\集合\HashCode和equals.md)
-        * [Comparable接口](articles\Java进阶\集合\Comparable接口.md)
-        * [Iterator与Collection](articles\Java进阶\集合\Iterator与Collection.md)
-      * [Java IO介绍](articles\Java进阶\IO\IO.md)
+
+<font style="color:black;font-size:20px;font-weight:2px">Java进阶</font>
+
+* [Java常用类](articles\Java进阶\常用类\Java常用类.md)
+  * [String类](articles\Java进阶\常用类\String.md)
+  * [StringBuilder、StringBuffer、StringJoiner](articles\Java进阶\常用类\StringBuilder、StringBuffer、StringJoiner.md)
+  * [包装类型](articles\Java进阶\常用类\包装类型.md)
+  * [BigDecima类](articles\Java进阶\常用类\BigDecimal.md)
+  * [Math类](articles\Java进阶\常用类\Math类.md)
+  * [日期类](articles\Java进阶\常用类\日期类.md)
+  * [File类](articles\Java进阶\常用类\File类.md)
+* [Java反射](articles\Java进阶\反射\Java反射.md)
+* [Java集合](articles\Java进阶\集合\集合类的介绍.md)
+  * [Map](articles\Java进阶\集合\Map.md)
+  * [List](articles\Java进阶\集合\List.md)
+  * [Set](articles\Java进阶\集合\Set.md)
+  * [HashCode和equals](articles\Java进阶\集合\HashCode和equals.md)
+  * [Comparable接口](articles\Java进阶\集合\Comparable接口.md)
+  * [Iterator与Collection](articles\Java进阶\集合\Iterator与Collection.md)
+* [Java IO介绍](articles\Java进阶\IO\IO.md)
+
+<font style="color:black;font-size:20px;font-weight:2px">开发必备</font>
+
+-  [Git的使用.md](articles\开发辅助工具\Git的使用.md) 
+
+-  [maven的使用.md](articles\开发辅助工具\maven的使用.md) 
+-  [JSON的使用.md](articles\开发辅助工具\JSON的使用.md) 
+
+
+
 - Java线程
   - [（一）线程是什么](articles\Java线程\（一）线程是什么.md)
   - [（二）Java线程与系统线程，生命周期](articles\Java线程\（二）Java线程与系统线程，生命周期.md)
@@ -70,4 +82,9 @@
   - [（十四）volatile](articles\Java线程\（十四）volatile.md)
   - [（十五）ThreadLocal的使用](articles\Java线程\（十五）ThreadLocal的使用.md)
   - [（十六）ReentrantLock可重入锁](articles\Java线程\（十六）ReentrantLock可重入锁.md)
-
+- [JVM](articles\JVM\JVM掌握的知识点.md) 
+  -  [类加载机制.md](articles\JVM\类加载机制.md)
+  -  [Java内存区域.md](articles\JVM\Java内存区域.md) 
+  -  [Java内存模型.md](articles\JVM\Java内存模型.md) 
+  -  [Java内存模型的happen-before.md](articles\JVM\Java内存模型的happen-before.md) 
+  -  [谈谈Java的垃圾回收.md](articles\JVM\谈谈Java的垃圾回收.md) 

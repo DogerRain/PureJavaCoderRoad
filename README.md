@@ -34,15 +34,18 @@
 
 > 文件太大，右击 `在新标签页打开图片`
 
-![HelloCoder](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/20210223r-mohu-Java学习路线公众号HelloCode.png)
+![HelloCoder](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/20210311-HelloCoder.png)
 
-<a href = "https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/20210223r-mohu-Java学习路线公众号HelloCode.png" target="_blank">点击访问思维导图</a>
+<a href = "https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/20210311-HelloCoder.png" target="_blank">点击访问思维导图</a>
 
 ## 更新时间线
 
-| 版本 | 时间       | 更新内容   |
-| ---- | ---------- | ---------- |
-| 1.0  | 2021-01-01 | 第一次发布 |
+| 版本 | 时间       | 更新内容                              |
+| ---- | ---------- | ------------------------------------- |
+| 1.0  | 2021-01-01 | 第一次发布，只有Java基础知识          |
+| 2.0  | 2021-03-01 | 加入Java进阶内容，包含IO、多线程、JVM |
+
+
 
 
 
@@ -60,3 +63,6 @@ Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rai
 
 最后，希望各位可以帮我点一个 star :star: ，这样我就更有动力更新了。  
 
+
+
+更新时间：2021年3月11日 18:07:34
