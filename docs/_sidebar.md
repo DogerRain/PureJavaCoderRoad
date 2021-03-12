@@ -59,8 +59,7 @@
 <font style="color:black;font-size:20px;font-weight:2px">开发必备</font>
 
 -  [Git的使用.md](articles\开发辅助工具\Git的使用.md) 
-
--  [maven的使用.md](articles\开发辅助工具\maven的使用.md) 
+-  [Maven的使用.md](articles\开发辅助工具\Maven的使用.md) 
 -  [JSON的使用.md](articles\开发辅助工具\JSON的使用.md) 
 
 
