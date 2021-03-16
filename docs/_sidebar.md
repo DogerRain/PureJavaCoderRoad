@@ -42,7 +42,7 @@
   * [String类](articles\Java进阶\常用类\String.md)
   * [StringBuilder、StringBuffer、StringJoiner](articles\Java进阶\常用类\StringBuilder、StringBuffer、StringJoiner.md)
   * [包装类型](articles\Java进阶\常用类\包装类型.md)
-  * [BigDecima类](articles\Java进阶\常用类\BigDecimal.md)
+  * [BigDecimal类](articles\Java进阶\常用类\BigDecimal.md)
   * [Math类](articles\Java进阶\常用类\Math类.md)
   * [日期类](articles\Java进阶\常用类\日期类.md)
   * [File类](articles\Java进阶\常用类\File类.md)
