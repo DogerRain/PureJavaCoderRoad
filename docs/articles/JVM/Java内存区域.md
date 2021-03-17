@@ -8,11 +8,11 @@
 
 ##### 1.8 之前：
 
-#####  ![Java内存区域 1.8之前](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201109230052253.png)
+![Java内存区域 1.8之前](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201109230052253.png)
 
 ##### JDK1.8（含）之后：
 
-##### ![Java内存区域 1.8](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201109230258985.png)
+![Java内存区域 1.8](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201109230258985.png)
 
 
 
