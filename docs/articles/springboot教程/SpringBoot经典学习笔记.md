@@ -5,11 +5,14 @@
 本课程首发于 CSDN GitChat 达人课《跟武哥一起学Spring Boot》，该文档为课程详细笔记。
 作者：倪升武（武哥）
 微信公众号：武哥聊编程
+
 ![武哥聊编程](https://img-blog.csdnimg.cn/202002150421550.jpg)
+
+
 
 >版权申明：本课程已经免费，但版权属于 CSDN 和作者，未经允许，不得将该笔记用于商业用途和其他不正当用途，否则追究法律责任。
 
-
+###### 
 
 # 导读：课程概览
 
@@ -302,6 +305,7 @@ server:
 
 本节我们快速学习了如何在 IDEA 中导入 jdk，以及使用 IDEA 如何配置 maven 和编码，如何快速的创建和启动 Spring Boot 工程。IDEA 对 Spring Boot 的支持非常友好，建议大家使用 IDEA 进行 Spring Boot 的开发，从下一课开始，我们真正进入 Spring Boot 的学习中。
 课程源代码下载地址：[戳我下载](https://gitee.com/eson15/springboot_study)
+
 > 欢迎关注我的为微信公众号：武哥聊编程
 
 
