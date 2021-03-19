@@ -92,18 +92,5 @@ Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rai
 
 更新时间：2021年3月11日 18:07:34
 
-<div class="alert alert-success">
-    <div st;e>
-        <i class="fa fa-lightbulb-o"></i>
-        本文由 <a href="http://blog.didispace.com/">程序猿DD</a> 创作<br>
-        禁止未经授权转载，违者依法追究相关法律责任<br>
-        如需授权可联系：didi@didispace.com
-<!--        采用-->
-<!--        <a href="http://creativecommons.org/licenses/by/3.0/cn" target="_blank" rel="external">CC BY 3.0 CN协议</a> 进行许可。-->
-<!--        可自由转载、引用，但需署名作者且注明文章出处。如转载至微信公众号，请在文末添加作者公众号二维码。<br>-->
-    </div>
-    <div class="copyright-right">
-        <a href="https://blog.didispace.com/css/images/weixin.jpg" title="" class="gallery-item" lg-event-uid="&amp;2"><img style="width: 100px;" src="/css/images/weixin.jpg"></a>
-    </div>
-    <div style="clear:both;height:0px;"></div>
-</div>
+
+

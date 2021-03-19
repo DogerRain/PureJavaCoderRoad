@@ -87,3 +87,7 @@
   -  [Java内存模型.md](articles\JVM\Java内存模型.md) 
   -  [Java内存模型的happen-before.md](articles\JVM\Java内存模型的happen-before.md) 
   -  [谈谈Java的垃圾回收.md](articles\JVM\谈谈Java的垃圾回收.md) 
+
+
+
+- [一些珍藏的计算机资源](https://github.com/DogerRain/awesome-programming-resources/blob/main/README.md)
