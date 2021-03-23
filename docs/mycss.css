@@ -720,7 +720,7 @@ section.cover blockquote > p > a:hover {
 }
 
 .markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong {
-    color: #2c3e50;
+    color: #000000;
     font-weight: 600
 }
 
@@ -749,7 +749,7 @@ section.cover blockquote > p > a:hover {
 }
 
 .markdown-section h5 {
-    font-size: 1rem
+    font-size: 1.1rem
 }
 
 .markdown-section h6 {
@@ -765,24 +765,25 @@ section.cover blockquote > p > a:hover {
 }
 
 .markdown-section ol, .markdown-section p, .markdown-section ul {
-    line-height: 1.6rem;
+    line-height: 1.5rem;
     word-spacing: .05rem;
-    margin: 1.8em 0;
+    margin: 1em 0;
     letter-spacing: 0.1em;
     font-size: 1.05em;
 }
 
 .markdown-section ol, .markdown-section ul {
-    padding-left: 1.5rem;
+    padding-left: 3rem;
     margin: 1.8em 0;
     letter-spacing: 0.1em;
     font-size: 1.05em;
+    line-height: 2rem;
 }
 
 .markdown-section blockquote {
-    border-left: 4px solid var(--theme-color, #42b983);
+    border-left: 4px solid var(--theme-color, #858585);
     color: #858585;
-    margin: 2em 0;
+    margin: 2em 1em;
     padding-left: 20px;
     background: #d2dde844;
 }
@@ -790,7 +791,7 @@ section.cover blockquote > p > a:hover {
 .markdown-section blockquote p {
     /*font-weight: 600;*/
     /*margin-left: 0*/
-    padding: 0.5em 0;
+    padding: 0em 0;
 }
 
 .markdown-section iframe {
@@ -917,7 +918,7 @@ section.cover blockquote > p > a:hover {
     font-family: Roboto Mono, Monaco, courier, monospace;
     font-size: .8rem;
     line-height: inherit;
-    margin: 0 2px;
+    margin: 2px 2px;
     max-width: inherit;
     overflow: inherit;
     padding: 0.5em 5px;

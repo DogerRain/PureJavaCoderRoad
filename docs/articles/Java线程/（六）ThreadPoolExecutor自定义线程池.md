@@ -139,7 +139,7 @@ ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 9, 0L, TimeUni
 
 Java提供了四种拒绝策略。
 
-`AbortPolicy`：`默认的拒绝策略`，会 `throw RejectedExecutionException` 拒绝
+`AbortPolicy`：`默认的拒绝策略`，会直接 `throw RejectedExecutionException` 拒绝
 `CallerRunsPolicy`：提交任务的主线程自己去执行该任务
 `DiscardOldestPolicy`：丢弃最老的任务，其实就是把最早进入工作队列的任务丢弃，然后把新任务加入到工作队列
 `DiscardPolicy`：相当大胆的策略，直接丢弃任务，没有任何异常抛出

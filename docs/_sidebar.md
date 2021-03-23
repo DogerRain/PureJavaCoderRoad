@@ -10,7 +10,7 @@
       * Java基础介绍
         * [Java基础语法](articles\Java基础\Java基础\1、Java基础语法.md)
         * [Java数据变量和类型](articles\Java基础\Java基础\2、Java数据变量和类型.md)
-        * [ava数组](articles\Java基础\Java基础\3、Java数组.md)
+        * [Java数组](articles\Java基础\Java基础\3、Java数组.md)
         * [Java运算符](articles\Java基础\Java基础\4、Java运算符.md)
         * [字符和字符串](articles\Java基础\Java基础\5、字符和字符串.md)
         * [注释](articles\Java基础\Java基础\6、注释.md)
