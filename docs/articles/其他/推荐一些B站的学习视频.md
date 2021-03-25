@@ -25,7 +25,7 @@ IDEA作为Java开发者最受欢迎的开发工具，所谓工欲善其事必先
 
 视频不是很长，一共19集，2倍速1一个小时即可看完。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324110808775.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324110808775.png)
 
 ## 3、MySQL
 https://www.bilibili.com/video/BV1xW411u7ax
@@ -36,7 +36,9 @@ https://www.bilibili.com/video/BV1xW411u7ax
 
 主要包含数据库和表的常用操作、约束、视图、存储过程和函数、流程控制结构以及综合运用各种命令实现数据的增删改查操作。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324111718270.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324111718270.png)
+
+
 
 
 
@@ -47,7 +49,7 @@ https://www.bilibili.com/video/BV1Y7411K7zz
 
 JavaWeb 是个庞大的知识点，这也是学习SSM框架的前提条件，这部分简单了解即可。
 
- ![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324123258096.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324123258096.png)
 
 
 
@@ -57,7 +59,9 @@ https://www.bilibili.com/video/BV1E4411H73v
 
 内容包括: 稀疏数组、单向队列、环形队列、单向链表、双向链表、环形链表、约瑟夫问题、栈、前缀、中缀、后缀表达式、中缀表达式转换为后缀表达式、递归与回溯、迷宫问题、八皇后问题、算法的时间复杂度、冒泡排序、选择排序、插入排序、快速排序、归并排序、希尔排序、基数排序(桶排序)、堆排序、排序速度分析、二分查找、插值查找、斐波那契查找、散列、哈希表、二叉树、二叉树与数组转换、二叉排序树(BST)等
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324170431606.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210326000807549.png)
+
+
 
 以上这个是Java版本的，另外看到评论和弹幕说 ：
 
@@ -69,13 +73,15 @@ https://www.bilibili.com/video/BV1E4411H73v
 
 https://www.bilibili.com/video/av75509584/
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324171138846.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210326001030514.png)
 
 第二个是浙江大学的：
 
 https://www.bilibili.com/video/BV1E4411H73v
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324171119960.png)
+ ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324171119960.png)
+
+
 
 ## 6、计算机网络
 
@@ -87,7 +93,7 @@ https://www.bilibili.com/video/BV1c4411d7jb
 
 这个教学视频的特点就是有字幕！还有计算机网络408考研历年真题解析。（不考研的可以忽略这一部分）
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324171649086.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324171649086.png)
 
 ## 7、操作系统
 
@@ -95,15 +101,15 @@ https://www.bilibili.com/video/BV1js411b7vg
 
 清华大学的陈渝老师和向勇老师主讲，课内容和他们课堂授课内容是一致的，同时配有一套完整的实验，实验内容是从无到有地建立起一个小却五脏俱全的操作系统。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324172320145.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324172320145.png)
 
 这门课程可能有点难，毕竟是清华大学的带实验课程，加上年代久远，觉得困难的可以试一下这个：
 
 https://www.bilibili.com/video/BV1N741177F5
 
-2020年南京大学的  “操作系统：设计与实现 课程，老师是蒋炎岩，
+2020年南京大学的  “操作系统：设计与实现 课程，老师是蒋炎岩：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324173113836.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324173113836.png)
 
 > 操作系统这方面的课程确实难找，所以有好的课程大家也可以分享一下~
 
@@ -119,11 +125,12 @@ https://www.bilibili.com/video/av83622425
 
 这个视频的主讲人是宋红康老师，听说是尚硅谷最受欢迎的老师之一。
 
-
 视频一共381集，建议有工作经验的小伙伴观看。
 
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324113606571.png)
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324113606571.png)
+
+
 
 
 
@@ -133,7 +140,9 @@ https://www.bilibili.com/video/av83622425
 
 https://www.bilibili.com/video/BV1Vf4y127N5
 
- 从Spring5框架最基础的部分讲起，内容由浅入深，适合有一定Java开发基础的相关人员，也适合具备一定软件开发能力的人员。![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324181238602.png)
+ 从Spring5框架最基础的部分讲起，内容由浅入深，适合有一定Java开发基础的相关人员，也适合具备一定软件开发能力的人员。
+
+ ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234303187.png)
 
 ## SpringBoot
 
@@ -143,7 +152,15 @@ https://www.bilibili.com/video/BV1gW411W76m
 
 主讲人是雷丰阳巨佬，评价颇高。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324180526332.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324180526332.png)
+
+## SpringCloud
+
+https://www.bilibili.com/video/BV18E411x7eT
+
+内容涵盖目前火热的分布式微服务架构的全部技术栈，是尚硅谷高阶班微服务课程的最新升级版。新版教程对老版的五大技术做了升级加强和替换更新，对原有技术进行了更加深入的讲解 。
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234144662.png)
 
 
 
@@ -153,10 +170,40 @@ https://www.bilibili.com/video/BV1mW411M7YA
 
 MVC是一种开发思想，这部分可以简单了解，该视频涵盖了企业开发的技术点。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\其他\picture\image-20210324181457767.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324181457767.png)
+
+## MyBatis
+
+https://www.bilibili.com/video/BV1mW411M737
+
+视频包含：MyBatis配置文件编写，MyBatis动态SQL，MyBatis缓存机制，MyBatis-Spring整合，MyBatis逆向工程，MyBatis高级内容（MyBatis源码解析，MyBatis单/多插件运行机制，MyBatis四大对象工作原理，自定义TypeHandler、MyBatis存储过程&游标处理等）
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234016737.png)
+
+## 实战项目—谷粒商城
+
+https://www.bilibili.com/video/BV1np4y1C7Yf
+
+视频一共408集，全网最强电商项目《尚硅谷_谷粒商城》全套发布，完爆其它电商！ 微服务+分布式+全栈+集群+部署+自动化运维+可视化CICD。
+
+相信很多Java的小伙伴都知道这个项目，现在你不用到处找了资源了，就在B站看，而且还有课件、资料、源码。
+
+ ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234918307.png)
+
+## Java大厂面试题
+
+https://www.bilibili.com/video/BV1Hy4y1B78T
+
+周阳主讲，本套视频教程对标大厂阿里P6、P7的知识深度，具有一定难度，对于想学习高阶知识、想跳槽进大厂的同学，是必刷的题目和必扫的技术盲点。内容涉及各大厂常考常问的高频经典JavaEE高阶知识，包括JUC的AQS，Spring循环依赖和三级缓存，Redis内存打满、分布式锁和过期淘汰策略，以及数据结构和手写算法等多个技术维度，涵盖面广内容深，题目困难要求高。
+
+如果觉得这个比较难，可以看一下第一期、第二期，稍微简单一点。
+
+> 注：这个是最新的2021版，大家可以去看看
+
+ ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210326000050881.png)
 
 
 
-其他：
+尚硅谷Java学习路线：
 https://www.bilibili.com/read/cv5216534?spm_id_from=333.788.b_636f6d6d656e74.5
 
