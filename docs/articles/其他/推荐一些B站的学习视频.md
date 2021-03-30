@@ -13,7 +13,7 @@ https://www.bilibili.com/video/BV1Kb411W75N
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20210324110419325.png)
 
-> 大家多看看尚硅谷周阳和雷丰阳老师的，推荐的这些都是月薪15k以内的基础篇，高级部分请升级看看周阳和雷丰阳老师的。
+> 高级部分，建议大家多看看尚硅谷周阳和雷丰阳老师的， 我个人是觉得不错的，可以多看看。
 
 ## 2、IDEA的使用介绍
 
@@ -134,7 +134,7 @@ https://www.bilibili.com/video/av83622425
 
 
 
-## Spring
+## 9、Spring
 
 学完JavaWeb部分，就可以上手框架了，框架我个人觉得只需要掌握SSM（Spring+SpringMVC+MyBatis）就行了，其他的比如JPA、JWT等等可以到以后再慢慢学。
 
@@ -144,7 +144,7 @@ https://www.bilibili.com/video/BV1Vf4y127N5
 
  ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234303187.png)
 
-## SpringBoot
+## 10、SpringBoot
 
 https://www.bilibili.com/video/BV1gW411W76m
 
@@ -154,7 +154,7 @@ https://www.bilibili.com/video/BV1gW411W76m
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324180526332.png)
 
-## SpringCloud
+## 11、SpringCloud
 
 https://www.bilibili.com/video/BV18E411x7eT
 
@@ -164,7 +164,7 @@ https://www.bilibili.com/video/BV18E411x7eT
 
 
 
-## springMVC
+## 12、springMVC
 
 https://www.bilibili.com/video/BV1mW411M7YA
 
@@ -172,7 +172,7 @@ MVC是一种开发思想，这部分可以简单了解，该视频涵盖了企�
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210324181457767.png)
 
-## MyBatis
+## 13、MyBatis
 
 https://www.bilibili.com/video/BV1mW411M737
 
@@ -180,7 +180,7 @@ https://www.bilibili.com/video/BV1mW411M737
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234016737.png)
 
-## 实战项目—谷粒商城
+## 14、实战项目—谷粒商城
 
 https://www.bilibili.com/video/BV1np4y1C7Yf
 
@@ -190,7 +190,7 @@ https://www.bilibili.com/video/BV1np4y1C7Yf
 
  ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210325234918307.png)
 
-## Java大厂面试题
+## 15、Java大厂面试题
 
 https://www.bilibili.com/video/BV1Hy4y1B78T
 
