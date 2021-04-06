@@ -19,6 +19,7 @@
 
 
 ### 为什么要做PureJavaCoderRoad ？
+起初了为了总结自己的经验，写了大量的笔记，后来越写越多，遂完整写下来了。
 
 
 
@@ -70,7 +71,7 @@
 
 http://rain.baimuxym.cn/
 
-一个搬砖的技术人。
+一个搬砖的技术人，欢迎来闲逛。
 
 
 
@@ -84,13 +85,22 @@ GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerr
 
 Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rainyudianxx.gitee.io/purejavacoderroad/#/)（国内访问快）
 
+> 以上三个都是一样的，Gittee会慢一点
+
+
+
+---
+## 友情链接
+- 一个高质量的Java面试题收集文档
+
+[LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob) 
+
 
 
 最后，希望各位可以帮我点一个 star :star: ，这样我就更有动力更新了。  
 
 
-
-更新时间：2021年3月11日 18:07:34
+更新时间：2021年4月6日  
 
 
 
