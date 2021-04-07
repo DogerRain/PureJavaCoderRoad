@@ -117,6 +117,8 @@ null
 List<String> linkedList = new LinkedList<>();
 ```
 
+LinkedList间接的实现了List接口（说明LinkedList是有list的特性的，add，remove等）、实现了Cloneable（可复制）、Serializable（进行了序列化），除此之外还有一个东西还实现了Queue（队列，说明应该是有队列的一些特性，pop等）
+
 
 
 **Arraylist 与 LinkedList 异同：**

@@ -19,6 +19,10 @@ window系统快捷键 Ctrl+R 输入cmd  ，回车 ，输入` mvn -v`, 输出以�
 
 ![ ](https://images-1253198264.cos.ap-guangzhou.myqcloud.com/image-20200526231731305.png)
 
+安装成功后就可以在IDEA中配置Maven了，之后使用就可以使用Maven进行项目开发和打包了。
+
+
+
 ## Maven有什么用？
 
 ###  1. 依赖管理
@@ -130,6 +134,8 @@ clean package -Dmaven.test.skip=true -P pro
 
 执行`clean` ，跳过单元测试打包到target目录，并且选择 `pro`作为节点，这是Maven选择profile的功能，这里指定到pro环境：
 
+> 即 `<id>pro</id>` 这里
+
 ```xml
 <profiles>
         <!--开发环境 -->
@@ -191,13 +197,11 @@ clean package -Dmaven.test.skip=true -P pro
 
 
 
-
-
 maven的仓库因为是国外镜像，可以配置阿里的镜像，这样下载jar就会很快：
 
 > 配置参考：https://maven.aliyun.com/mvn/guide
 
-打开 maven 的配置文件（ windows 机器一般在 maven 安装目录的 **conf/settings.xml** ），在<mirrors></mirrors>标签中添加 mirror 子节点:
+打开 maven 的配置文件（ windows 机器一般在 maven 安装目录的 **conf/settings.xml** ），在`<mirrors></mirrors>`标签中添加 阿里云的 mirror 子节点:
 
 ```
 <mirror>
@@ -207,4 +211,3 @@ maven的仓库因为是国外镜像，可以配置阿里的镜像，这样下载
   <url>https://maven.aliyun.com/repository/public</url>
 </mirror>
 ```
-
