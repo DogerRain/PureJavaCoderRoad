@@ -92,6 +92,10 @@ Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rai
 - 一个高质量的Java面试题收集文档
 
   [LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob) 
+  
+- 一个收集计算机资源的合集
+
+  [awesome-programming-resources](https://github.com/DogerRain/awesome-programming-resources)
 
 
 
