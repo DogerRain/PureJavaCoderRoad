@@ -109,6 +109,7 @@ public class MapTest {
     public static void main(String[] args) {
         Car wuLingHongGuang = new Car("粤M88888", "五菱宏光");
         Car baoMa = new Car("粤M66666", "宝马");
+        //Car 做为整一个对象
         Map<Integer, Car> map = new HashMap<>();
         map.put(1, wuLingHongGuang);
         map.put(2, baoMa);
@@ -129,11 +130,19 @@ HashMap hashMap = new HashMap();
 
 eg：
 
-![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210127100352350.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210127100352350.png)
 
 无法从`Object`转到`String`。
 
 所以在使用集合的时候，尽量指定泛型，否则很可能就会报类型转换错误。
+
+
+
+HashMap 是一个重点，也是日常开发中使用比较多的数据结构，HashMap的原理：
+
+
+
+
 
 
 
@@ -151,7 +160,7 @@ Map<Integer, String> hashtable = new Hashtable<>();
 
 `TreeMap`是有序的，会记录插入的顺序。
 
-> TreeMap 底层为数据结构为红黑树，默认为升序排序方式.
+> TreeMap 底层为数据结构为红黑树，TreeMap 实现 SortMap 接口，能够把它保存的记录根据键排序（默认按键值升序排序，也可以指定排序的比较器）
 
 **TreeMap对象的key不可以为null、value值可为null。**
 
@@ -161,13 +170,31 @@ Map<Integer, String> hashtable = new Hashtable<>();
 Map<Integer, String> treeMap = new TreeMap<>();
 ```
 
+### 4、LinkedHashMap
+
+保存了记录的插入顺序，在用 Iterator 遍历时，先取到的记录肯定是先插入的；
+
+遍历比 HashMap 慢。
+
+LinkedHashMap 用的比较少，一般情况下很少使用。
+
+### 5、ConcurrentHashMap
+
+从名字就可以看出来ConcurrentHashMap是HashMap的线程安全版。
+
+同HashMap相比，ConcurrentHashMap不仅保证了访问的线程安全性，而且在效率上与HashTable相比，也有较大的提高。除了**加锁**，原理上和HashMap无太大区别。
+
+另外，HashMap 的键值对允许有null，但是 ConCurrentHashMap 都不允许。
+
+
+
 
 
 ### **HashMap** **和** **Hashtable** 的区别：
 
 相同点：
 
-都是实现来Map接口（hashTable还实现了Dictionary 抽象类）
+都是实现来Map接口（hashTable 还实现了Dictionary 抽象类）
 
 区别：
 
@@ -214,6 +241,18 @@ Map m = Collections.synchronizeMap(hashMap);
 
 
 如果要保证插入的顺序和遍历的顺序，建议选用`LinkedHashMap`，可以保证put的顺序和遍历的顺序是一样的。
+
+
+
+### 总结一下使用选择
+
+一般情况下，使用最多的是 HashMap。
+
+HashMap：在 Map 中插入、删除和定位元素时；
+
+TreeMap：在需要按自然顺序或自定义顺序遍历键的情况下；
+
+LinkedHashMap：在需要输出的顺序和输入的顺序相同的情况下。
 
 
 

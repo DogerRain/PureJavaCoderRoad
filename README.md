@@ -6,20 +6,18 @@
 
 《Java小白之路》PureJavaCoderRoad 是一个帮助【Java小白】从入门到找到一份工作所需掌握的技能教程，对标目前企业招聘要求（一线12k）。 
 
+本项目包含JavaSE、JavaEE（Spring、Mybatis、SpringCloud）、Mysql、Redis、Maven、Nginx、Linux服务器、Git、工具使用、算法 等基础教程。
+
 ### 为什么是12K？
 
 通过爬虫抓取BOSS招聘，还有CSDN公布的薪资情况，统计得到的Java开发者薪资中位数 。
 
-
-
-本项目包含JavaSE、JavaEE（Spring、Mybatis、SpringCloud）、Mysql、Redis、Maven、Nginx、Linux服务器、Git、工具使用、算法 等基础教程。
-
-
+最后分析BOSS中的要求，写下这份文档。
 
 
 
 ### 为什么要做PureJavaCoderRoad ？
-起初了为了总结自己的经验，写了大量的笔记，后来越写越多，遂完整写下来了。
+起初了为了总结自己一路过来入行Java的历程，写了大量的笔记，后来越写越多，遂完整写下来了。
 
 
 
@@ -85,7 +83,7 @@ GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerr
 
 Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rainyudianxx.gitee.io/purejavacoderroad/#/)（国内访问快）
 
-> 以上三个都是一样的，Gittee会慢一点
+> 以上三个都是一样的，Gittee内容更新会慢一点
 
 
 
@@ -93,7 +91,7 @@ Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rai
 ## 友情链接
 - 一个高质量的Java面试题收集文档
 
-[LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob) 
+  [LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob) 
 
 
 
