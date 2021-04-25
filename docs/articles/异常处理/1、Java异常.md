@@ -16,7 +16,7 @@ Java中错误有很多种，比如我们定义了一个整型`int`数据，一�
 
 Java的异常`Throwable`也是`class`，是异常体系的爸爸。
 
- ![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210115172917862.png)
+ ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210115172917862.png)
 
 
 
@@ -58,7 +58,7 @@ Java的异常`Throwable`也是`class`，是异常体系的爸爸。
 
 有一天哈C的五菱宏光，启动了之后忘记熄火了，发动机一直在运行中：
 
-```
+```java
 class WuLingHongGuang {
     void drive() {
         System.out.println("五菱宏光发动机正在运行中......");
@@ -76,7 +76,7 @@ class HaC {
 
 输出：
 
-```
+```java
 五菱宏光发动机正在运行中......
 五菱宏光发动机正在运行中......
 五菱宏光发动机正在运行中......
