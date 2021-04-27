@@ -120,7 +120,7 @@ synchronized是Java中的关键字，是一种同步锁。它修饰的对象有�
 
  为了彻底理解synchronized作用的范围，下面我写了了几个demo，如果你理解了，应该就能彻底明白synchronized该怎么用了。
 
-## demo1 ——synchronized 
+## demo1 ——使用synchronized 
 
 
 
@@ -561,7 +561,15 @@ testDemoSynchronizedfor、testDemoSynchronizedfor2
 如果把同步块 换成    synchronized (this)、synchronized (x)  就不能同步了。
 synchronized (z) 、synchronized (k) 的话 因为这个 Integer在   [-128, 127] 之间时，会拆箱放在常量池，常量池是线程共享的，所以两个不同的TestDemoSynchronized 对象去创建 Integer(100) 会先判断常量池是否有100，有就不会创建，直接返回该对象；如果不在  [-128, 127]，Integer会直接在堆创建一个对象，这时候两个TestDemoSynchronized对象就互不影响了。
 
+---
+
+
+
 建议尝试一下这个demo6。
+
+
+
+我在这里并没有讲到synchronized的底层原理，因为这个太复杂了，可以看一下这里：https://blog.csdn.net/javazejian/article/details/72828483
 
 
 

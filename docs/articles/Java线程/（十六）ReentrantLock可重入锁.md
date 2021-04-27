@@ -1,6 +1,6 @@
 ## 1、ReentrantLock介绍
 
-jdk中独占锁的实现除了使用关键字`synchronized`外,还可以使用`ReentrantLock`。
+jdk中独占锁的实现除了使用关键字`synchronized`外，还可以使用`ReentrantLock`。
 
 虽然在性能上`ReentrantLock`和`synchronized`没有什么区别，但`ReentrantLock`相比`synchronized`而言功能更加丰富，使用起来更为灵活，也更适合复杂的并发场景。
 
@@ -27,6 +27,12 @@ ReentrantLock在重入时要却确保重复获取锁的次数必须和重复释�
 2、ReenTrantLock提供了一个Condition（条件）类，用来实现分组唤醒需要唤醒的线程们，而不是像synchronized要么随机唤醒一个线程要么唤醒全部线程。
 
 3、ReenTrantLock提供了一种能够中断等待锁的线程的机制，通过`lock.lockInterruptibly()`来实现这个机制。
+
+
+
+ReentrantLock底层使用了CAS+AQS队列实现，下面分别具体介绍两个技术。
+
+
 
 
 
