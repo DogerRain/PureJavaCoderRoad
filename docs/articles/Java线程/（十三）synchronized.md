@@ -290,7 +290,7 @@ Thread1 : 5  --->>>10
 
 因为第一个线程进入的时候，会拿到整个对象的锁，执行完5次循环才会释放锁。
 
-Thread2先进入，拿到对象锁testDemoSynchronizedfor，Thread1发现自己也是testDemoSynchronizedfor，但是被Thread2先进入锁住了，只能等待。
+Thread2先进入，拿到对象锁 `testDemoSynchronizedfor`，Thread1 发现自己也是 `testDemoSynchronizedfor`，但是被Thread2先进入锁住了，只能等待。
 
 看看synchronized (TestDemoSynchronized.class) 会怎么样：
 ```java
@@ -561,17 +561,37 @@ testDemoSynchronizedfor、testDemoSynchronizedfor2
 如果把同步块 换成    synchronized (this)、synchronized (x)  就不能同步了。
 synchronized (z) 、synchronized (k) 的话 因为这个 Integer在   [-128, 127] 之间时，会拆箱放在常量池，常量池是线程共享的，所以两个不同的TestDemoSynchronized 对象去创建 Integer(100) 会先判断常量池是否有100，有就不会创建，直接返回该对象；如果不在  [-128, 127]，Integer会直接在堆创建一个对象，这时候两个TestDemoSynchronized对象就互不影响了。
 
+
+
+建议大家尝试一下这个demo6，在本地运行测试一下。
+
+
+
+## synchronized底层原理
+
+我在这里并没有讲到synchronized的底层原理，因为这个太复杂了，简单的说就是 **基于进入和退出管程(Monitor)对象实现**。
+
+JVM对于**同步方法和同步代码块的处理方式不同**。
+
+- 对于同步方法，JVM采用`ACC_SYNCHRONIZED`标记符来实现同步。 
+
+- 对于同步代码块。JVM采用`monitorenter`、`monitorexit`两个指令来实现同步。
+
+
+
+随着JDK的升级和迭代，synchronized 的优化做的越来越好，其中最大的一次优化就是在jdk6的时候，新增了两个锁状态，通过锁消除、锁粗化、自旋锁等方法使用各种场景，给synchronized性能带来了很大的提升。
+
+
+
+想深入了解其原理的可以看一下这里：
+
+https://blog.csdn.net/javazejian/article/details/72828483
+
+https://cloud.tencent.com/developer/article/1465413
+
+
+
 ---
-
-
-
-建议尝试一下这个demo6。
-
-
-
-我在这里并没有讲到synchronized的底层原理，因为这个太复杂了，可以看一下这里：https://blog.csdn.net/javazejian/article/details/72828483
-
-
 
 参考：
 
