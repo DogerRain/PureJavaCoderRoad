@@ -143,19 +143,33 @@ http://example.com:8080
 
 **正向代理**是一个位于客户端和原始服务器之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定原始服务器，然后代理向原始服务器转交请求并将获得的内容返回给客户端。代理服务器和客户端处于同一个局域网内。
 
-比如说 你要访问 pornhub，你的浏览器是无法直接的，于是我就通过代理服务器让它帮我转发，这种方式是客户端指定请求URL的。
+比如说 你要访问 pornhub，你的浏览器是无法直接的，于是我就通过代理服务器（fanqiang）让它帮我转发，这种方式是客户端指定请求URL的。
 
-> "喂？是代理服务器吗，帮我访问一下 www.pornhub.com"
+> "喂？是代理服务器吗，帮我访问一下 www.pornhub.com"，正向代理的工作原理就像一个跳板。
 
 **反向代理**实际运行方式是代理服务器接受网络上的连接请求。它将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给网络上请求连接的客户端 。
 
 代理服务器和原始服务器处于同一个局域网内。反向代理隐藏了真实的服务器，为服务器收发请求，使真实服务器对客户端不可见。一般在处理跨域请求的时候比较常用。
 
-比如说我要访问taobao，对我来说不知道图片、json数据、css 是不是同一个服务器返回回来的，但是我不关心，是反向代理 处理的，我不知道原始服务器。
+比如说我要访问 https://rain.baimuxym.cn/images.jpg，对我来说不知道图片是不是同一个服务器返回回来的，甚至这个图片根本不在这台服务器，图片可以是服务器偷偷从其他 服务器，比如从 https://images.baimuxym.cn 拿回来的，但是用户并不知情。 
 
 ![ ](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201028150646664.png)
 
  
+
+**代理的好处：**
+
+- 保护了真实的web服务器，保证了web服务器的资源安全
+
+只用于代理内部网络对Internet外部网络的连接请求，不支持外部网络对内部网络的连接请求，因为内部网络对外部网络是不可见的。所有的静态网页或者CGI程序，都保存在内部的Web服务器上。因此对反向代理服务器的攻击并不会使得网页信息遭到破坏，这样就增强了Web服务器的安全性。
+
+- 节约了有限的IP地址资源
+
+共享一个在internet中注册的IP地址（内网局域网），这些服务器分配私有地址，采用虚拟主机的方式对外提供服务。
+
+- 减少WEB服务器压力，提高响应速度
+
+负载的实现方式之一，不同的资源可以放在不同的服务器。（下面提到的负载均衡、动静分离也是通过反向代理实现的）
 
 ### 2.4、负载均衡
 
@@ -163,7 +177,7 @@ http://example.com:8080
 
 如何分发压力？Nginx也可以配置规则，比如说权重、轮询、hash 等等。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\Nginx\picture\image-20210429101548741.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210429101548741.png)
 
 
 
@@ -175,7 +189,7 @@ http://example.com:8080
 
 如果请求的是静态资源，直接到静态资源目录获取资源，如果是动态资源的请求，则利用**反向代理**的原理，把请求转发给对应后台应用去处理，从而实现动静分离。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\Nginx\picture\image-20210429101604508.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210429101604508.png)
 
 ## 3、安装Nginx
 
@@ -349,7 +363,7 @@ main        # 全局配置，也称为Main块，对全局生效
 6. 使用 `$` 符号使用变量；
 7. 部分指令的参数支持正则表达式；
 
-### 5.2、Nginx 的典型配置
+### 5.2、Nginx的典型配置
 
 ```bash
 #-----------全局块 START-----------
@@ -448,6 +462,137 @@ main, http, server, location
 
 events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，常用的设置包括是否开启对多 work process 下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个 word process 可以同时支持的最大连接数等。 上述例子就表示每个 work process 支持的最大连接数为 1024，这部分的配置对 Nginx 的性能影响较大，在实际中应该灵活配置。
 
+### 5.3 、Nginx的location
+
+server 块可以包含多个 location 块，location 指令用于匹配 uri，语法：
+
+```bash
+location [ = | ~ | ~* | ^~ ]  /uri/  {
+	...
+}
+```
+
+- `=` 开头表示精确匹配，如果匹配成功，不再进行后续的查找；
+- `^`  以xxx开头的匹配
+- `$`  以xxx结尾的匹配
+- `*`  代表任意字符
+- `^~` 匹配**开头以 xxx 的路径**，理解为匹配 url 路径即可。nginx不对url做编码，因此请求为`/static/20%/HaC`，可以被规则`^~ /static/ /HaC`匹配到（注意是空格）
+- `~` 开头表示**区分大小写**的正则匹配          
+- `~*` 开头表示**不区分大小写**的正则匹配        
+- `!` 表示不包含xxx就匹配
+- `/` 通用匹配，任何请求都会匹配到。
+
+
+
+`~*` 和 `~`优先级都比较低，如有多个location的正则能匹配的话，则使用正则表达式最长的那个；
+
+如果 uri 包含正则表达式，则必须要有 `~` 或 `~*` 标志。
+
+借用https://www.cnblogs.com/jpfss/p/10232980.html博客一文的例子来说明一下：
+
+```php
+server {
+    listen 80;
+    server_name  localhost;
+    location = / {
+       #规则A
+    }
+    location = /login {
+       #规则B
+    }
+    location ^~ /static/ {
+       #规则C
+    }
+    location ~ \.(gif|jpg|png|js|css)$ {
+       #规则D，注意：是根据括号内的大小写进行匹配。括号内全是小写，只匹配小写
+    }
+    location ~* \.png$ {
+       #规则E
+    }
+    location !~ \.xhtml$ {
+       #规则F
+    }
+    location !~* \.xhtml$ {
+       #规则G
+    }
+    location / {
+       #规则H
+    }
+}
+```
+
+**那么产生的效果如下：**
+
+访问根目录/， 比如http://localhost/ 将匹配规则A
+
+访问 http://localhost/login 将匹配规则B，http://localhost/register 则匹配规则H
+
+访问 http://localhost/static/a.html 将匹配规则C
+
+访问 http://localhost/a.gif, http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 而 http://localhost/static/c.png 则优先匹配到 规则C
+
+访问 http://localhost/a.PNG 则匹配规则E， 而不会匹配规则D，因为规则E不区分大小写。
+
+访问 http://localhost/a.xhtml 不会匹配规则F和规则G，
+
+http://localhost/a.XHTML不会匹配规则G，（因为!）。规则F，规则G属于排除法，符合匹配规则也不会匹配到，所以想想看实际应用中哪里会用到。
+
+访问 http://localhost/category/id/1111 则最终匹配到规则H，因为以上规则都不匹配，这个时候nginx转发请求给后端应用服务器，比如FastCGI（php），tomcat（jsp），nginx作为方向代理服务器存在。
+
+
+
+所以实际使用中，个人觉得至少有三个匹配规则定义，如下：
+
+```bash
+#直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
+#这里是直接转发给后端应用服务器了，也可以是一个静态首页
+# 第一个必选规则
+location = / {
+	#反向代理
+    proxy_pass http://tomcat:8080/index
+}
+ 
+# 第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项
+# 有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用
+location ^~ /static/ {                              //以xx开头
+    root /webroot/static/;
+}
+location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {     //以xx结尾
+    root /webroot/res/;
+}
+ 
+#第三个规则就是通用规则，用来转发动态请求到后端应用服务器
+#非静态文件请求就默认是动态请求，自己根据实际把握
+location / {
+    proxy_pass http://tomcat:8080/
+}
+```
+
+
+
+### 5.4、Nginx的全局变量
+
+Nginx提供了一些全局变量，我们可以在任意的位置使用这些变量。
+
+| 全局变量名         | 功能                                                         |
+| :----------------- | :----------------------------------------------------------- |
+| `$host`            | 请求信息中的 `Host`，如果请求中没有 `Host`行，则等于设置的服务器名，不包含端口 |
+| `$request_method`  | 客户端请求类型，如 `GET`、`POST`                             |
+| `$remote_addr`     | 客户端的 `IP` 地址                                           |
+| `$args`            | 请求中的参数                                                 |
+| `$arg_PARAMETER`   | `GET` 请求中变量名 PARAMETER 参数的值，例如：`$http_user_agent`(Uaer-Agent 值), `$http_referer`... |
+| `$content_length`  | 请求头中的 `Content-length` 字段                             |
+| `$http_user_agent` | 客户端agent信息                                              |
+| `$http_cookie`     | 客户端cookie信息                                             |
+| `$remote_addr`     | 客户端的IP地址                                               |
+| `$remote_port`     | 客户端的端口                                                 |
+| `$http_user_agent` | 客户端agent信息                                              |
+| `$server_protocol` | 请求使用的协议，如 `HTTP/1.0`、`HTTP/1.1`                    |
+| `$server_addr`     | 服务器地址                                                   |
+| `$server_name`     | 服务器名称                                                   |
+| `$server_port`     | 服务器的端口号                                               |
+| `$scheme`          | HTTP类型（如http，https）                                    |
+
 
 
 ## 6、Nginx实践
@@ -460,4 +605,5 @@ events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，
 
 - https://mp.weixin.qq.com/s/pjhZi5cmpewwHZNn-aQJiA
 - https://blog.csdn.net/yexudengzhidao/article/details/100104134
+- https://www.cnblogs.com/jpfss/p/10232980.html
 
