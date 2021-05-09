@@ -1,6 +1,6 @@
 # Hello，Coder
 
-## 絮
+## 絮&叨
 
 ### <font color=blue>PureJavaCoderRoad 是什么？</font>
 
@@ -50,18 +50,15 @@
 
 ### 1、公众号联系我
 
-由于工作量大，难免出现错误，欢迎给我提bug。
+由于都是我一个人在维护，难免出现错误，欢迎给我提bug。
 
-欢迎关注我的Java技术公众号，不定时分享Java技术干货：
+欢迎关注我的Java技术公众号，不定时分享Java技术干货（虽然也什么没什么干货😅.....）
 
-<div align="center"> <img src="https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/HelloCoder.png"  style="zoom:30%;"> </div>
+<div align="center"> <img src="https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/wuli_HelloCoder.png"  style="zoom:30%;"></img> </div>
 
  
 
-
-或者微信搜一搜 【**HelloCoder**】
-
-同时，本项目后续会整理成PDF，Github 更新可能存在延迟，如果需要第一时间获取最新版本，可以关注我的公众号。
+同时，本项目后续会整理成PDF，Github 更新可能存在延迟，如果需要第一时间获取最新版本，可以关注我的公众号，也可以不关，反正都会更新到这里。（目前整理比较费时间，筒子们可以不定时打开）
 
 
 
@@ -97,12 +94,9 @@ Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rai
 
   [awesome-programming-resources](https://github.com/DogerRain/awesome-programming-resources)
 
+最后，求点一个 star :star: 奥利给，老铁们。
 
-
-最后，希望各位可以帮我点一个 star :star: ，这样我就更有动力更新了。  
-
-
-更新时间：2021年4月6日  
+> 最后更新时间：2021年5月9日 19:38:51
 
 
 
