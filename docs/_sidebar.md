@@ -82,6 +82,11 @@
   -  [Java内存模型的happen-before.md](articles\JVM\Java内存模型的happen-before.md) 
   -  [谈谈Java的垃圾回收.md](articles\JVM\谈谈Java的垃圾回收.md) 
 
+<font style="color:black;font-size:20px;font-weight:2px">Java新特性</font>
+
+- [Java新特性是什么？如何学习它？](articles\Java新特性\Java8新特性.md)
+- [Java之Optional](articles\Java新特性\Java8新特性.md) 
+
 <font style="color:black;font-size:20px;font-weight:2px">数据结构和算法</font>
 
 -  [常见的数据结构](articles\数据结构与算法\常见的数据结构.md) 
