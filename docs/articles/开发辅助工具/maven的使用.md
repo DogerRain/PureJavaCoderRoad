@@ -128,7 +128,7 @@ maven的中央仓库地址：https://mvnrepository.com/  基本收集了所有�
 
 比如命令：
 
-```xml
+```bash
 clean package -Dmaven.test.skip=true -P pro
 ```
 
@@ -203,7 +203,7 @@ maven的仓库因为是国外镜像，可以配置阿里的镜像，这样下载
 
 打开 maven 的配置文件（ windows 机器一般在 maven 安装目录的 **conf/settings.xml** ），在`<mirrors></mirrors>`标签中添加 阿里云的 mirror 子节点:
 
-```
+```xml
 <mirror>
   <id>aliyunmaven</id>
   <mirrorOf>*</mirrorOf>
