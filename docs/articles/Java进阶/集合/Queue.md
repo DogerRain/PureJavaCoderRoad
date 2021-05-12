@@ -10,17 +10,23 @@ Queue接口扩展自Collection，并提供插入、提取、检验等操作。
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210407113029806.png)
 
+`add()`、`offer()`表示向队列添加一个元素
 
-
-add()、offer()表示向队列添加一个元素
-
-poll()与remove()方法都是移除队列头部的元素并返回
+`poll()`与`remove()`方法都是**移除队列头部的元素并返回该元素**
 
 > 两者的区别在于如果队列为空，那么poll()返回的是null，而remove()会抛出一个NoSuchElementException异常。
 
-element()与peek()主要是获取头部元素，不删除。
+`element()`与`peek()`主要是**获取头部元素，不删除**。
 
-> 可以看到同一个功能有两个方法
+> 以上6个方法，规律就是 同一个功能有两个方法，区别就是是否抛出异常
+
+|          | 抛出异常  | **返回特殊值** |
+| -------- | --------- | -------------- |
+| **插入** | add(e)    | offer(e)       |
+| **删除** | remove()  | poll()         |
+| **检查** | element() | peek()         |
+
+
 
 ## Queue 接口的实现类
 
@@ -59,3 +65,14 @@ public class QueueTest {
 1 2 3 3 0 
 ```
 
+
+
+## 总结：
+
+Queue 是一个**先进先出**的数据结构，常见的用法是
+
+```java
+Queue<String> queue2 = new LinkedList<String>();
+```
+
+在使用方法时，只有6个API，可以看情况是否需要抛出异常进行选择。

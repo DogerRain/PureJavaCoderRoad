@@ -51,8 +51,9 @@
   * [Map](articles\Java进阶\集合\Map.md)
   * [List](articles\Java进阶\集合\List.md)
   * [Set](articles\Java进阶\集合\Set.md)
-  * [Queue](articles\Java进阶\集合\Queue.md) 
-  * [Stack](articles\Java进阶\集合\Stack.md) 
+  * [Queue先进先出队列](articles\Java进阶\集合\Queue.md) 
+  * [Stack先进后出栈](articles\Java进阶\集合\Stack.md) 
+  * [Deque双向队列](articles\Java进阶\集合\Deque.md) 
   * [HashCode和equals](articles\Java进阶\集合\HashCode和equals.md)
   * [Comparable接口](articles\Java进阶\集合\Comparable接口.md)
   * [Iterator与Collection](articles\Java进阶\集合\Iterator与Collection.md)
@@ -75,6 +76,7 @@
   - [（十四）volatile](articles\Java线程\（十四）volatile.md)
   - [（十五）ThreadLocal的使用](articles\Java线程\（十五）ThreadLocal的使用.md)
   - [（十六）ReentrantLock可重入锁](articles\Java线程\（十六）ReentrantLock可重入锁.md)
+  -  [（十七）AtomicInteger](articles\Java线程\（十七）AtomicInteger.md) 
 - [JVM](articles\JVM\JVM掌握的知识点.md) 
   -  [类加载机制.md](articles\JVM\类加载机制.md)
   -  [Java内存区域.md](articles\JVM\Java内存区域.md) 
@@ -106,9 +108,9 @@
 
 <font style="color:black;font-size:20px;font-weight:2px">开发必备</font>
 
--  [Git的使用.md](articles\开发辅助工具\Git的使用.md) 
--  [Maven的使用.md](articles\开发辅助工具\Maven的使用.md) 
--  [JSON的使用.md](articles\开发辅助工具\JSON的使用.md) 
+-  [Git的使用](articles\开发辅助工具\Git的使用.md) 
+-  [Maven的使用](articles\开发辅助工具\Maven的使用.md) 
+-  [JSON的使用](articles\开发辅助工具\JSON的使用.md) 
 
 <font style="color:black;font-size:20px;font-weight:2px">Linux</font>
 
@@ -118,7 +120,7 @@
 
 <font style="color:black;font-size:20px;font-weight:2px">中间件使用</font>
 
--  [Nginx入门.md](articles\Nginx\Nginx入门.md) 
+-  [Nginx入门与实践](articles\Nginx\Nginx入门.md) 
 
 <font style="color:black;font-size:20px;font-weight:2px">其他</font>
 
