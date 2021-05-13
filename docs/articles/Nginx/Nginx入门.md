@@ -688,11 +688,11 @@ rate: 用于设置最大访问速率。
 
 步骤如下：
 
-1、首先需要把域名解析到我的IP
+1. 首先需要把域名解析到我的IP
 
-2、申请SSL证书，配置服务器
+2. 申请SSL证书，配置服务器
 
-3、正向代理，监听443端口（因为https的端口是443），转发；监听 80 端口，`http://` 强制 跳到 `https://`。
+3. 正向代理，监听443端口（因为https的端口是443），转发；监听 80 端口，`http://` 强制 跳到 `https://`。
 
 ```bash
   server {
@@ -719,6 +719,22 @@ rate: 用于设置最大访问速率。
     	}
     }
 ```
+
+### 7.2 反向代理
+
+和正向代理差不多的配置，我这里列举一下 `location`的不同：
+
+```bash
+location / {
+	proxy_http_version 1.1; #代理使用的http协议
+	proxy_set_header Host $host; #header添加请求host信息
+	proxy_set_header X-Real-IP $remote_addr; # header增加请求来源IP信息
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # 增加>代理记录
+	proxy_pass http://127.0.0.1:8888;
+}
+```
+
+只需要简单使用 `proxy_pass` 就可以反向代理，可用于跳转到Tomcat的服务地址、springbooot项目的服务地址。
 
 
 
