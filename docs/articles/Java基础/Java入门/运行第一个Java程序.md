@@ -56,7 +56,7 @@ java Hello
 
 `.java、.class、jvm` 的关系，以及跨平台的理解：
 
-![ java程序执行流程](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20201014154245544.png)
+![java程序执行流程](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20201014154245544.png)
 
 
 
