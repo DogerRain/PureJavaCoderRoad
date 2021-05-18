@@ -1,3 +1,7 @@
+
+
+
+
 几乎所有的项目部署，都会用到Nginx。
 
 主要用到Nginx的功能有如下：
@@ -414,6 +418,14 @@ http {   # 配置使用最频繁的部分，代理、缓存、日志定义等绝
     		deny 172.18.5.54   # 禁止访问的ip地址，可以为all
     		allow 172.18.5.53;# 允许访问的ip地址，可以为all
     	}
+    	  # 图片防盗链
+         location ~* \.(gif|jpg|jpeg|png|bmp|swf)$ {
+            valid_referers none blocked 192.168.0.2;  # 只允许本机 IP 外链引用
+            if ($invalid_referer){
+              return 403;
+            }
+          }
+    	
     	#新增内容，可以在自己的server单独配置错误日志
     	error_log    logs/error_localhost.log    error;
         
@@ -621,11 +633,15 @@ Nginx 默认提供的负载均衡策略：
 
 还可以通过插件支持其他策略。
 
+- 5、**fair**（第三方），按后端服务器的响应时间分配，响应时间短的优先分配，依赖第三方插件 nginx-upstream-fair，需要先安装；
+
 例如：使用weight负载均衡策略分发请求到不同的服务
 
 ```bash
-	upstream mysite {
-        server 127.0.0.1:8090 weight=1;
+	upstream mysite { 
+	# ip_hash # ip_hash 方式
+	# weight权重分配方式，表示 1:1
+        server 127.0.0.1:8090 weight=1; 
         server 127.0.0.1:8091 weight=1;
     }
     server {
@@ -678,7 +694,7 @@ rate: 用于设置最大访问速率。
 
 
 
-## 7、Nginx实践
+## 7、Nginx代理
 
 ### 7.1、正向代理
 
@@ -720,7 +736,7 @@ rate: 用于设置最大访问速率。
     }
 ```
 
-### 7.2 反向代理
+### 7.2 、反向代理
 
 和正向代理差不多的配置，我这里列举一下 `location`的不同：
 
@@ -736,7 +752,91 @@ location / {
 
 只需要简单使用 `proxy_pass` 就可以反向代理，可用于跳转到Tomcat的服务地址、springbooot项目的服务地址。
 
+Nginx详细的实践可以参考：TODOLIST
 
+## 8、开启 gzip 压缩
+
+HTTP协议上的gzip编码是一种用来改进web应用程序性能的技术,web服务器和客户端(浏览器)必须共同支持gzip。
+
+目前主流的浏览器,Chrome,firefox,IE等都支持该协议。
+
+**客户端请求时：**支持的浏览器会加上 `Accept-Encoding: gzip` 这个 header，表示自己支持 gzip 的压缩方式，
+
+**服务器处理时：**Nginx 在拿到这个请求的时候，如果有相应配置，就会返回经过 gzip 压缩过的文件给浏览器，并在 response 相应的时候加上 `content-encoding: gzip` 来告诉浏览器自己采用的压缩方式
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518165524708.png)
+
+Nginx开启gzip的配置如下：
+
+```bash
+
+http {
+  # 开启gzip
+  gzip on;
+
+  # 启用gzip压缩的最小文件；小于设置值的文件将不会被压缩
+  # ,建议设置成大于1k,如果小于1k可能会越压越大
+  gzip_min_length 1k;
+
+  # 压缩比率,用来指定gzip压缩比(1~9)
+  # 1:压缩比最小,速度最快,9:压缩比最大,传输速度最快,但处理最慢,也比较的消耗CPU资源
+  gzip_comp_level 2;
+
+  # 进行压缩的文件类型。text/html 文件被系统强制启用
+  gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+
+  # 是否在http header中添加Vary: Accept-Encoding，建议开启
+  gzip_vary on;
+}
+```
+
+开启gzip对网站的性能有很大的提升，比如说我的网站，这是没有开启压缩前的大小，可以看到是`50.2kB`，time是100ms
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164206239.png)
+
+这是开启gzip压缩后的大小，可以看到是`11.5kB`，time是88ms： ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164842720.png)
+
+比如说掘金的网站也是使用了gzip，可以通过 content-encoding 进行判断：
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164046719.png)
+
+
+
+## 9、HTTP、IP转发到HTTPS
+
+我们购买了SSL证书后配置了HTTPS，用户在访问 [http://rain.baimuxym.cn](http://rain.baimuxym.cn) 或者[http://81.71.16.134](http://81.71.16.134/)访问的时候，我们可以让它强制跳转到 [https://rain.baimuxym.cn](https://rain.baimuxym.cn)
+
+```bash
+server {
+    listen 80;
+    server_name 81.71.16.134;
+    return 301 https://www.baimuxym.cn$request_uri; #ip重定向跳至https访问。
+}
+
+
+server {
+    listen       80; #监听端口
+    server_name  *.baimuxym.cn #请求域名
+    location  ^~ / {
+    return  301 https://$server_name$request_uri; #重定向至https访问。
+    
+    # 或者
+    # 全局非 https 协议时重定向
+    if ($scheme != 'https') {
+        return 301 https://$server_name$request_uri;
+    }
+
+    # 或者直接全部重定向，不用判断HTTP还是HTTPS
+    return 301 https://$server_name$request_uri;
+}
+
+```
+
+## 10、总结
+
+以上就是一些关于Nginx的简单用法，网上的资料也很多，有兴趣的可以自己学习一下，比如说 图片服务器、文件下载服务器、动静分离、跨域解决等等的实现。
+
+Nginx更详细的说明，建议大家去Nginx的官方网站查看。
 
 参考：
 

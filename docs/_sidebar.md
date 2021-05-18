@@ -116,11 +116,19 @@
 
 - 
 
+<font style="color:black;font-size:20px;font-weight:2px">Redis</font>
 
+- [（1）Redis分布式事务锁的原理](articles\Redis\Redis分布式事务锁的原理.md)
+- [（2）Redis分布式事务锁的秒杀、超卖 简单例子](articles\Redis\Redis分布式事务锁的秒杀、超卖 简单例子.md) 
+-  [Redis的使用规范](articles\Redis\Redis的使用规范有哪些？.md) 
+-  [Redis的删除策略和内存淘汰机制](articles\Redis\Redis的删除策略和内存淘汰机制.md) 
+-  [Redis的持久化机制，RDB和AOF](articles\Redis\Redis的持久化机制，RDB和AOF.md) 
+-  [Redis之缓存击穿、穿透、雪崩.md](articles\Redis\Redis之缓存击穿、穿透、雪崩.md) 
 
-<font style="color:black;font-size:20px;font-weight:2px">中间件使用</font>
+<font style="color:black;font-size:20px;font-weight:2px">Nginx</font>
 
 -  [Nginx入门与实践](articles\Nginx\Nginx入门.md) 
+-  [推荐一款Nginx可视化操作工具](articles\Nginx\推荐一款Nginx可视化操作工具.md) 
 
 <font style="color:black;font-size:20px;font-weight:2px">其他</font>
 
