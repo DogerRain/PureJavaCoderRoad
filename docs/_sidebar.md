@@ -119,7 +119,7 @@
 <font style="color:black;font-size:20px;font-weight:2px">Redis</font>
 
 - [（1）Redis分布式事务锁的原理](articles\Redis\Redis分布式事务锁的原理.md)
-- [（2）Redis分布式事务锁的秒杀、超卖 简单例子](articles\Redis\Redis分布式事务锁的秒杀、超卖 简单例子.md) 
+- [（2）Redis分布式事务锁的秒杀、超卖简单例子](articles\Redis\Redis分布式事务锁的秒杀、超卖简单例子.md) 
 -  [Redis的使用规范](articles\Redis\Redis的使用规范有哪些？.md) 
 -  [Redis的删除策略和内存淘汰机制](articles\Redis\Redis的删除策略和内存淘汰机制.md) 
 -  [Redis的持久化机制，RDB和AOF](articles\Redis\Redis的持久化机制，RDB和AOF.md) 
