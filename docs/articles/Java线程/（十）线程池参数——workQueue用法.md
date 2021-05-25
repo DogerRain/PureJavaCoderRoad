@@ -22,7 +22,7 @@ LinkedTransferQueue：一个由链表结构组成的无界阻塞队列。
 
 LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列。
 
-![](picture/image-20210525232155784.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210525232155784.png)
 
 介绍一下常用的有三种`workQueue` 
 

@@ -77,6 +77,7 @@
   - [（十五）ThreadLocal的使用](articles\Java线程\（十五）ThreadLocal的使用.md)
   - [（十六）ReentrantLock可重入锁](articles\Java线程\（十六）ReentrantLock可重入锁.md)
   -  [（十七）AtomicInteger](articles\Java线程\（十七）AtomicInteger.md) 
+  -   [（十八）Worker线程管理](articles\Java线程\（十八）Worker线程管理.md) 
 - [JVM](articles\JVM\JVM掌握的知识点.md) 
   -  [类加载机制.md](articles\JVM\类加载机制.md)
   -  [Java内存区域.md](articles\JVM\Java内存区域.md) 
