@@ -78,6 +78,20 @@ null
 
 也就是说 ThreadLocal 本身并不存储值，它只是作为一个 key 来让线程从 ThreadLocalMap 获取 value。
 
+总结：
+
+1、每个Thread维护着一个ThreadLocalMap的引用
+
+2、ThreadLocalMap是ThreadLocal的内部类，用Entry来进行存储
+
+3、调用ThreadLocal的set()方法时，实际上就是往ThreadLocalMap设置值，key是ThreadLocal对象，值是传递进来的对象
+
+4、调用ThreadLocal的get()方法时，实际上就是往ThreadLocalMap获取值，key是ThreadLocal对象
+
+5、**ThreadLocal本身并不存储值**，它只是**作为一个key来让线程从ThreadLocalMap获取value**。
+
+
+
 
 
 ## ThreadLocal内存泄漏问题
@@ -235,6 +249,6 @@ tab[staleSlot] = new Entry(key, value);
 
 参考：
 
- [https://blog.csdn.net/qq_33404395/article/details/82356344](https://blog.csdn.net/qq_33404395/article/details/82356344)
+- [https://blog.csdn.net/qq_33404395/article/details/82356344](https://blog.csdn.net/qq_33404395/article/details/82356344)
 
-[https://www.cnblogs.com/shen-qian/p/12108655.html](https://www.cnblogs.com/shen-qian/p/12108655.html)
+- [https://www.cnblogs.com/shen-qian/p/12108655.html](https://www.cnblogs.com/shen-qian/p/12108655.html)

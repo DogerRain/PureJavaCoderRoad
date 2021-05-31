@@ -110,7 +110,7 @@
 <font style="color:black;font-size:20px;font-weight:2px">开发必备</font>
 
 -  [Git的使用](articles\开发辅助工具\Git的使用.md) 
--  [Maven的使用](articles\开发辅助工具\Maven的使用.md) 
+-   [Maven的介绍](articles\Maven\Maven的介绍.md) 
 -  [JSON的使用](articles\开发辅助工具\JSON的使用.md) 
 
 <font style="color:black;font-size:20px;font-weight:2px">Linux</font>
@@ -122,7 +122,7 @@
 -  [占用几分钟时间，让你掌握top命令.md](articles\Linux\占用几分钟时间，让你掌握top命令.md) 
 -  [vi模式下的快捷键.md](articles\Linux\vi模式下的快捷键.md) 
 -  [Linux三剑客之grep命令.md](articles\Linux\Linux三剑客之grep命令.md) 
--  [Linux三剑客之grep命令.md](articles\Linux\Linux三剑客之grep命令.md) 
+-   [Linux三剑客之awk命令](articles\Linux\Linux三剑客之awk命令.md) 
 
 <font style="color:black;font-size:20px;font-weight:2px">Redis</font>
 

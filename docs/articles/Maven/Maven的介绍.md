@@ -46,11 +46,13 @@ window系统快捷键 Ctrl+R 输入cmd  ，回车 ，输入` mvn -v`, 输出以�
         </dependency>
 ```
 
-
+groupId、artifactId、version 就是这个依赖的坐标，能确定唯一的jar，简称GAV。
 
 这样子Maven就会自动帮你去Maven的中央仓库下载jar到本地。
 
-maven的中央仓库地址：https://mvnrepository.com/  基本收集了所有的jar包。
+> 可以自行百度配置阿里的镜像，这样下载更快
+
+maven的中央仓库地址：[https://mvnrepository.com/](https://mvnrepository.com/ )  ，这里收集了所有的开源依赖，只需要在这里找到GAV即可下载。
 
 ### 2. 一键构建
 
