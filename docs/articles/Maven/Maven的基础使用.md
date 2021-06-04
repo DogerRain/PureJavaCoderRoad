@@ -95,3 +95,27 @@ Maven社区提供了一个URL [**http://search.maven.org/#browse** ](http://sear
 
 
 
+## 镜像
+
+在maven中不配置mirror时使用的maven的中央库。
+
+我们可以使用阿里云的镜像，这样下载的包就会快一点
+
+```xml
+<mirror>
+  <id>alimaven</id>
+  <name>aliyun maven</name>
+  <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+  <mirrorOf>central</mirrorOf>
+</mirror>
+```
+
+`mirrorOf`可以设置为不同的 仓库id， 一般设置 为 `central` 或者 `*` 
+
+ `*` 表示所有的请求地址都被拦截，所有的请求都去这个地址拉取，如果在私服（公司内），不要这样配置。**若依赖包不存在也不会去中央仓库获取**。因为这里表示后面就没有备库了。
+
+ `central` 表示只拦截 central 仓库，（在maven的父pom文件当中，配置了一个默认的远程仓库，即中央仓库，ID为：central），本来嘛，找不到就会去Maven中央仓库找，但是很慢；现在用阿里的，阿里直接拦截了，阿里的表示先去我这里找吧，我比较快，找不到你再去Maven中央仓库找。
+
+
+
+mirror相当于一个拦截器，它会拦截maven对remote repository的相关请求，把请求里的remote repository地址，重定向到mirror里配置的地址。

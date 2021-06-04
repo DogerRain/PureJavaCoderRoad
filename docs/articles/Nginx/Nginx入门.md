@@ -838,6 +838,10 @@ server {
 
 Nginx更详细的说明，建议大家去Nginx的官方网站查看。
 
+
+
+
+
 参考：
 
 - https://mp.weixin.qq.com/s/pjhZi5cmpewwHZNn-aQJiA

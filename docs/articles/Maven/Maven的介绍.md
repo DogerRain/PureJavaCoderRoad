@@ -203,6 +203,8 @@ maven的仓库因为是国外镜像，可以配置阿里的镜像，这样下载
 
 > 配置参考：https://maven.aliyun.com/mvn/guide
 
+如果不想看上面的参考，你可以像我这样操作：
+
 打开 maven 的配置文件（ windows 机器一般在 maven 安装目录的 **conf/settings.xml** ），在`<mirrors></mirrors>`标签中添加 阿里云的 mirror 子节点:
 
 ```xml
