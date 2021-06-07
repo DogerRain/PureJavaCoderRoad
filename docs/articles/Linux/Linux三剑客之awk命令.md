@@ -23,7 +23,7 @@ awk [-F 分隔符] 'commands' input-file(s)
 -m	对val值设置内在限制
 ```
 
-`[-F 分隔符]`是可选的，因为awk默认使用**空格，制表符**作为缺省的字段分隔符。
+`[-F 分隔符]`是可选的，因为awk默认使用**空格 制表符**作为缺省的字段分隔符。
 
 最简单的用法：（默认使用空格分隔）
 
@@ -36,6 +36,7 @@ echo "I am HelloCoder's HaC" | awk '{ print $3,$4 }'
 # 输出：
 HelloCoder's HaC
 
+# 打印整行 和 print $0 效果一样 print 
 echo "I am HelloCoder's HaC" | awk '{ print $0 }'
 I am HelloCoder's HaC
 ```
@@ -93,15 +94,18 @@ adm
 | $                       | 字段引用                         |
 | in                      | 数组成员                         |
 
-#### 1、~ 含
+#### 1、~ 包含
 
-第三列`~"r"` 即第一列含有`r`的就打印：
+`'$1~"r"` 即第一列含有`r`的就打印整行：
 
 ```bash
-[root@VM-8-8-centos ~]# awk -F : '$1~"r"{print}' /etc/passwd
-root:x:0:0:root:/root:/bin/bash
-operator:x:11:0:operator:/root:/sbin/nologin
-dockerroot:x:995:992:Docker User:/var/lib/docker:/sbin/nologin
+# 第一列包含 r 的
+[root@localhost nginx]#  awk -F : '$1~"r" {print $1}' /etc/passwd
+root
+operator
+systemd-bus-proxy
+systemd-network
+chrony
 ```
 
 也支持结尾、开头、中间任意字符的正则表达：
@@ -128,15 +132,25 @@ operator
 含有字母 r 或者 t 的  ，
 
 ```bash
-[root@VM-8-8-centos ~]# awk -F : '$1~"r|t"{print}' /etc/passwd 
-root:x:0:0:root:/root:/bin/bash
-shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
-halt:x:7:0:halt:/sbin:/sbin/halt
+[root@localhost nginx]# awk -F : '$1~"r|t"{print $1}' /etc/passwd
+root
+shutdown
+halt
+operator
+ftp
+systemd-bus-proxy
+systemd-network
+polkitd
+tss
+postfix
+chrony
+ntp
+tcpdump
 ```
 
-还可以写成：`awk -F : '$1~"r*t"{print}' /etc/passwd` 
+还可以写成：`awk -F : '$1~"r*t"{print $1}' /etc/passwd` 
 
-#### 2、= 等于
+#### 2、== 等于
 
 ```bash
 [root@VM-8-8-centos ~]# awk -F : '$1=="root"{print $1}' /etc/passwd
@@ -154,12 +168,9 @@ root
  `{print $1}` 你可以理解为body ，意思为中间部分，每读取一行，执行一次 `body`。
 
 ```bash
-[root@VM-8-8-centos ~]# awk -F ':' 'BEGIN {print ""} {print $1} END {print "结束"}' /etc/passwd
+[root@VM-8-8-centos ~]# awk -F ':' 'BEGIN {print "开始"} $1~"root|mysql"{print $1} END {print "结束"}' /etc/passwd
 开始
 root
-bin
-daemon
-adm
 结束
 ```
 
@@ -202,17 +213,19 @@ awk 可以像 grep 一样匹配某一行，以下三种做法都可以：
 root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 dockerroot:x:995:992:Docker User:/var/lib/docker:/sbin/nologin
+
 [root@VM-8-8-centos ~]# awk '$0~"root"' /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 dockerroot:x:995:992:Docker User:/var/lib/docker:/sbin/nologin
+
 [root@VM-8-8-centos ~]# awk '/root/' /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 dockerroot:x:995:992:Docker User:/var/lib/docker:/sbin/nologin
 ```
 
-`/root|HaC/`  可以表示或，匹配多个字符串
+`/root|HaC/`  表示或，可以匹配多个字符串
 
 grep做法：
 
@@ -243,7 +256,7 @@ root
 sync
 ```
 
-可以把流程控制语句放到一个`.awk`脚本文件中，然后调用执行，如test.sh的内容如下
+可以把流程控制语句放到一个`.awk`脚本文件中，然后调用执行，如`test.sh`的内容如下
 
 ```bash
 {   
@@ -255,7 +268,7 @@ sync
 }
 ```
 
-用如下方式执行，效果一样，注意要使用`-f` ，表示调用脚本
+用如下方式执行，效果一样，注意要使用`-f` ，表示调用脚本文件
 
 ```bash
 awk -F ':' -f test.sh /etc/passwd
