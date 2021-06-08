@@ -91,6 +91,8 @@ esac
 
 ## 3、循环
 
+### 3.1 、for
+
 ```bash
 # 语法一
 for name in 列表 ;do
@@ -116,6 +118,7 @@ elif [[ $num -eq 0 ]] ;then
     echo "input error"
 else
 	# 使用sed形成一个数组
+	# `seq 1 $num` 表示一个1到$num 的连续数组
     for i in `seq 1 $num` ;do
     # 加减乘除需要这样写，否则是拼接
         sum=$[$sum+$i]
@@ -142,4 +145,93 @@ else
     echo $sum
 fi
 ```
+
+### 3.2、while
+
+```bash
+while 循环控制条件 ;do
+  循环
+done
+```
+
+demo：
+
+```bash
+# 100以内所有正奇数之和
+#!/bin/bash
+sum=0
+i=1
+# -le 小于
+while [ $i -le 100 ] ;do
+# -ne 不等于
+if [ $[$i%2] -ne 0 ];then
+    let sum+=i
+    let i++
+else
+    let i++
+fi
+done
+echo "sum is $sum"
+```
+
+
+
+循环也支持控制语法：
+
+- continue 
+- break
+- shift
+
+
+
+## 4、shift
+
+shift可以用来向左移动位置参数。
+
+但是在了解shift命令时，需要知道一些特殊的值：
+
+```bash
+Shell的名字 $0
+第一个参数 $1
+第二个参数 $2
+第n个参数 $n
+所有参数 $@ 或 $*
+参数个数 $#
+
+shift默认是 $1
+```
+
+
+
+demo：
+
+```bash
+#!/bin/bash
+while (( $# > 0 ))
+do
+        echo "$*"
+        shift
+done
+```
+
+测试：
+
+```bash
+[root@VM-8-8-centos ~]# ./shell_shift.sh 9 8 7 6 5 4 3 2 1
+9 8 7 6 5 4 3 2 1
+8 7 6 5 4 3 2 1
+7 6 5 4 3 2 1
+6 5 4 3 2 1
+5 4 3 2 1
+4 3 2 1
+3 2 1
+2 1
+1
+```
+
+`$#` 是获取输入的参数个数
+
+`$*`表示获取整行，然后向左移动位置参数（缩进）
+
+## 5、信号
 

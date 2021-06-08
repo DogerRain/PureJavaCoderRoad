@@ -229,7 +229,7 @@ public class RejectedExecutionExceptionTest {
 
 输出：
 
-```
+```java
 factory的exceptionHandler捕捉到异常--->>> 
 Task com.yudianxx.basic.线程.Executor.RejectedExecutionExceptionTest$TestRunnable@424c0bc4 rejected from java.util.concurrent.ThreadPoolExecutor@3c679bde[Running, pool size = 5, active threads = 5, queued tasks = 2, completed tasks = 0]
 2020-07-17 16:03:34---》》》ActiveCount:5，CompletedTaskCount:0，Queue:0，taskCount:7   Thread-0  线程被调用了。第1次
@@ -251,7 +251,7 @@ RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.Disca
 
 输出：
 
-```
+```java
 2020-07-17 16:04:43---》》》ActiveCount:5，CompletedTaskCount:0，Queue:0，taskCount:7   Thread-0  线程被调用了。第1次
 2020-07-17 16:04:44---》》》ActiveCount:5，CompletedTaskCount:1，Queue:1，taskCount:7   Thread-4  线程被调用了。第2次
 2020-07-17 16:04:45---》》》ActiveCount:5，CompletedTaskCount:2，Queue:2，taskCount:7   Thread-3  线程被调用了。第3次
@@ -271,7 +271,7 @@ RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.Calle
 
 输出：
 
-```
+```java
 2020-07-17 16:05:34---》》》ActiveCount:5，CompletedTaskCount:0，Queue:0，taskCount:7   Thread-0  线程被调用了。第1次
 2020-07-17 16:05:35---》》》ActiveCount:5，CompletedTaskCount:1，Queue:1，taskCount:7   Thread-4  线程被调用了。第2次
 2020-07-17 16:05:36---》》》ActiveCount:5，CompletedTaskCount:2，Queue:2，taskCount:7   Thread-3  线程被调用了。第3次
@@ -285,6 +285,54 @@ RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.Calle
 ```
 
 如果线程表示空闲的，就丢给调用这个线程的主线程去执行。
+
+
+
+## ThreadPoolExecutor源码分析
+
+一个线程池可以接受任务类型有Runnable和Callable，分别对应了execute和submit方法。
+
+来看看execute的方法：
+
+```java
+public void execute(Runnable command) {
+        if (command == null)
+            throw new NullPointerException();
+ 
+        int c = ctl.get();
+        //第一步：如果线程数量小于核心线程数  
+       // workerCountOf 是 获取活动线程数  
+        if (workerCountOf(c) < corePoolSize) {
+            //则启动一个核心线程执行任务  
+            if (addWorker(command, true))
+                return;
+            c = ctl.get();
+        }
+    //第二步：当前线程数量大于等于核心线程数，加入任务队列，成功的话会进行二次检查  
+        if (isRunning(c) && workQueue.offer(command)) {
+            int recheck = ctl.get();
+            if (! isRunning(recheck) && remove(command))
+                reject(command);
+            else if (workerCountOf(recheck) == 0)
+               //启动非核心线程执行，注意这里任务是null，其实里面会去取任务队列里的任务执行  
+                addWorker(null, false);
+        }
+    //第三步：加入不了队列（即队列满了），尝试启动非核心线程
+        else if (!addWorker(command, false))
+            //如果启动不了非核心线程执行，说明到达了最大线程数量的限制，拒绝
+            reject(command);
+    }
+```
+
+所以还是这张图：
+
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210525230256204.png)
+
+
+
+## 线程池是如何重复利用空闲的线程来执行任务的？
+
+，只要这个活动的线程数量小于设定的核心线程数，那么依旧会启动一个新线程来执行任务。也就是说不会去复用任何线程。在execute方法里面我们没有看到线程复用的影子，那么我们继续来看看addWorker方法。
 
 
 

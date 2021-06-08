@@ -17,7 +17,7 @@ Worker这个工作线程，实现了Runnable接口，并持有一个线程thread
 
 Worker执行任务的模型如下图所示：
 
-![ Worker执行任务](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210526001730670.png)
+![Worker执行任务](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210526001730670.png)
 
 线程池需要管理线程的生命周期，需要在线程长时间不运行的时候进行回收。线程池使用一张Hash表去持有线程的引用，这样可以通过添加引用、移除引用这样的操作来控制线程的生命周期。这个时候重要的就是如何判断线程是否在运行。
 
