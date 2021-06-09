@@ -1,7 +1,3 @@
-
-
-
-
 几乎所有的项目部署，都会用到Nginx。
 
 主要用到Nginx的功能有如下：
@@ -373,8 +369,10 @@ main        # 全局配置，也称为Main块，对全局生效
 #-----------全局块 START-----------
 user  nobody;                        # 运行用户，默认即是nginx，可以不进行设置
 worker_processes  1;                # Nginx 进程数，一般设置为和 CPU 核数一样
+worker_processes auto; 			   # Nginx 进程数 与当前 CPU 物理核心数一致
 error_log  /var/log/nginx/error.log warn;   # Nginx 的错误日志存放目录，日志级别是warn
 pid        /var/run/nginx.pid;      # Nginx 服务启动时的 pid 存放位置
+worker_rlimit_nofile 20480; # 可以理解成每个 worker 子进程的最大连接数量。
 
 #-----------全局块 END-----------
 
@@ -382,8 +380,8 @@ pid        /var/run/nginx.pid;      # Nginx 服务启动时的 pid 存放位置
 events {
     accept_mutex on;   #设置网路连接序列化，防止惊群现象发生，默认为on
     multi_accept on;  #设置一个进程是否同时接受多个网络连接，默认为off
+     # 事件驱动模型有 select|poll|kqueue|epoll|resig|/dev/poll|eventport
     use epoll;   #使用epoll的I/O模型，建议使用默认
-    # 事件驱动模型有 select|poll|kqueue|epoll|resig|/dev/poll|eventport
     worker_connections 1024;   # 每个进程允许最大并发数
 }
 #-----------events块 END-----------
@@ -582,6 +580,12 @@ location / {
 
 
 
+
+
+
+
+
+
 ### 5.4、Nginx的全局变量
 
 Nginx提供了一些全局变量，我们可以在任意的位置使用这些变量。
@@ -607,11 +611,128 @@ Nginx提供了一些全局变量，我们可以在任意的位置使用这些变
 
 
 
+### 5.5、Nginx的语法
+
+#### 5.5.1、return
+
+有点类似于Java编程，Nginx也可以使用`return`关键字进行返回。
+
+语法：
+
+```bash
+return code [text];
+return code URL;
+return URL;
+```
+
+例如：
+
+```bash
+location / {
+ return 404; # 直接返回状态码
+}
+
+location / {
+ return 404 "pages not found"; # 返回状态码 + 一段文本
+}
+
+location / {
+ return 302 /bbs ; # 返回状态码 + 重定向地址
+}
+
+location / {
+ return https://www.rain.baimuxym.cn ; # 返回重定向地址
+}
+```
+
+和`return`相似的还有`break`，跳出当前作用域，回到上一层继续向下，可以在server块,location块,if块中使用。
+
+
+
+#### 5.5.2、rewrite
+
+重写。（可以理解为重定向）
+
+语法：
+
+```bash
+rewrite 正则表达式 要替换的内容 [flag];
+```
+
+> rewrite 最后面还可以接参数：
+>
+> - redirect 返回 302 临时重定向；
+> - permanent 返回 301 永久重定向；
+
+例子：
+
+```bash
+server {
+     listen       80;
+     server_name  localhost;
+     charset      utf-8;
+      
+     location / {
+     # 浏览器访问 ip:80/test/，实际访问的是 http://www.baidu.com
+         rewrite '^/test/' http://www.baidu.com break;
+     }
+     location /image/ {
+     # 其中$1表示引用前面的([a-z]{3}),$2表示引用前面的'(.*)'
+    	 rewrite '^/([a-z]{3})/(.*)' /web/$1/$2 permanent;
+	}
+}
+```
+
+
+
+#### 5.5.3、if
+
+语法：
+
+```bash
+if (condition) { # 注意，if 和左括号( 有一个空格
+    ...
+}
+```
+
+可以在server块、location块使用
+
+condition可以是：
+
+```
+    =,!= : 判断变是否相等
+    正则表达式: ~(区分大小写),~*(不区分大小写),!~(~取反),!~*(~*取反)
+    -f,!-f: 文件时是否存在
+    -d,!-d: 目录是否存在
+    -e,!-e: 目录或文件是否在使用
+    -x,!-x: 文件是否可执行
+```
+
+例子：
+
+```bash
+if ($http_user_agent ~ Chrome){
+  rewrite /(.*)/browser/$1 break;
+}
+
+location / {
+	if ( $uri = "/images/" ){
+		rewrite (.*) /pics/ break;
+	}
+	if ($request_method = POST) {
+   		return 405;
+	}
+}
+
+```
+
+
+
 ## 6、负载均衡与限流
 
 ### 6.1、负载均衡
 
-Nginx 默认提供的负载均衡策略：
+在头部使用`upstream`即可使用负载均衡，Nginx 默认提供的负载均衡策略：
 
 - 1、轮询（默认）round_robin
 
@@ -622,6 +743,10 @@ Nginx 默认提供的负载均衡策略：
   > 每个请求按访问 ip 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 session 共享的问题。
   >
   > 当然，实际场景下，一般不考虑使用 ip_hash 解决 session 共享。
+
+  还有相似的url_hash，**通过请求url进行hash，再通过hash值选择后端server**
+
+  
 
 - 3、最少连接 least_conn
 
@@ -644,6 +769,7 @@ Nginx 默认提供的负载均衡策略：
         server 127.0.0.1:8090 weight=1; 
         server 127.0.0.1:8091 weight=1;
     }
+
     server {
         listen       80;
         server_name  hellocoder.com ;
@@ -658,6 +784,34 @@ Nginx 默认提供的负载均衡策略：
         }
     }
 ```
+
+使用IP、URL hash策略：
+
+```bash
+    upstream mysite { 
+     # ip_hash 策略
+	# ip_hash;
+	# url_hash 策略
+	hash $request_uri;
+     	server 127.0.0.1:8090;
+        server 127.0.0.1:8091;
+    }
+```
+
+在 upstream 内可使用的指令：
+
+- server 定义上游服务器地址；
+- zone 定义共享内存，用于跨 worker 子进程；
+- keepalive 对上游服务启用长连接；
+- keepalive_requests 一个长连接最多请求 HTTP 的个数；
+- keepalive_timeout 空闲情形下，一个长连接的超时时长；
+- hash 哈希负载均衡算法；
+- ip_hash 依据 IP 进行哈希计算的负载均衡算法；
+- least_conn 最少连接数负载均衡算法；
+- least_time 最短响应时间负载均衡算法；
+- random 随机负载均衡算法；
+
+
 
 ### 6.2、限流
 
@@ -836,7 +990,7 @@ server {
 
 以上就是一些关于Nginx的简单用法，网上的资料也很多，有兴趣的可以自己学习一下，比如说 图片服务器、文件下载服务器、动静分离、跨域解决等等的实现。
 
-Nginx更详细的说明，建议大家去Nginx的官方网站查看。
+Nginx更详细的说明，建议大家去[Nginx的官方网站](http://nginx.org/)查看。
 
 
 

@@ -288,54 +288,6 @@ RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.Calle
 
 
 
-## ThreadPoolExecutor源码分析
-
-一个线程池可以接受任务类型有Runnable和Callable，分别对应了execute和submit方法。
-
-来看看execute的方法：
-
-```java
-public void execute(Runnable command) {
-        if (command == null)
-            throw new NullPointerException();
- 
-        int c = ctl.get();
-        //第一步：如果线程数量小于核心线程数  
-       // workerCountOf 是 获取活动线程数  
-        if (workerCountOf(c) < corePoolSize) {
-            //则启动一个核心线程执行任务  
-            if (addWorker(command, true))
-                return;
-            c = ctl.get();
-        }
-    //第二步：当前线程数量大于等于核心线程数，加入任务队列，成功的话会进行二次检查  
-        if (isRunning(c) && workQueue.offer(command)) {
-            int recheck = ctl.get();
-            if (! isRunning(recheck) && remove(command))
-                reject(command);
-            else if (workerCountOf(recheck) == 0)
-               //启动非核心线程执行，注意这里任务是null，其实里面会去取任务队列里的任务执行  
-                addWorker(null, false);
-        }
-    //第三步：加入不了队列（即队列满了），尝试启动非核心线程
-        else if (!addWorker(command, false))
-            //如果启动不了非核心线程执行，说明到达了最大线程数量的限制，拒绝
-            reject(command);
-    }
-```
-
-所以还是这张图：
-
-![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210525230256204.png)
-
-
-
-## 线程池是如何重复利用空闲的线程来执行任务的？
-
-，只要这个活动的线程数量小于设定的核心线程数，那么依旧会启动一个新线程来执行任务。也就是说不会去复用任何线程。在execute方法里面我们没有看到线程复用的影子，那么我们继续来看看addWorker方法。
-
-
-
 ## 总结
 
 总的来说，使用 Executors 创建的线程池太过于理想化，并不能满足很多现实中的业务场景，所以要求我们通过 ThreadPoolExecutor来创建，并传入合适的参数。
