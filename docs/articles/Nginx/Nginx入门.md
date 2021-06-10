@@ -12,7 +12,7 @@
 
 ## 1、Nginx介绍
 
-Nginx下载地址：http://nginx.org
+Nginx下载地址：[http://nginx.org](http://nginx.org)
 
 Nginx 是开源、高性能、高可靠的 Web 和反向代理服务器，而且支持热部署，几乎可以做到 7 * 24 小时不间断运行，即使运行几个月也不需要重新启动，还能在不间断服务的情况下对软件版本进行热更新。
 
@@ -498,7 +498,7 @@ location [ = | ~ | ~* | ^~ ]  /uri/  {
 
 如果 uri 包含正则表达式，则必须要有 `~` 或 `~*` 标志。
 
-借用https://www.cnblogs.com/jpfss/p/10232980.html博客一文的例子来说明一下：
+借用[https://www.cnblogs.com/jpfss/p/10232980.html](https://www.cnblogs.com/jpfss/p/10232980.html)博客一文的例子来说明一下：
 
 ```php
 server {
@@ -533,21 +533,19 @@ server {
 
 **那么产生的效果如下：**
 
-访问根目录/， 比如http://localhost/ 将匹配规则A
+- 访问根目录/， 比如http://localhost/ 将匹配规则A
 
-访问 http://localhost/login 将匹配规则B，http://localhost/register 则匹配规则H
+- 访问 http://localhost/login 将匹配规则B，http://localhost/register 则匹配规则H
 
-访问 http://localhost/static/a.html 将匹配规则C
+- 访问 http://localhost/static/a.html 将匹配规则C
 
-访问 http://localhost/a.gif, http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 而 http://localhost/static/c.png 则优先匹配到 规则C
+- 访问 http://localhost/a.gif, http://localhost/b.jpg 将匹配规则D和规则E，但是规则D顺序优先，规则E不起作用， 而 http://localhost/static/c.png 则优先匹配到 规则C
 
-访问 http://localhost/a.PNG 则匹配规则E， 而不会匹配规则D，因为规则E不区分大小写。
+- 访问 http://localhost/a.PNG 则匹配规则E， 而不会匹配规则D，因为规则E不区分大小写。
 
-访问 http://localhost/a.xhtml 不会匹配规则F和规则G，
+- 访问 http://localhost/a.xhtml 不会匹配规则F和规则G，http://localhost/a.XHTML不会匹配规则G，（因为 !）。规则F，规则G属于排除法，符合匹配规则也不会匹配到，所以想想看实际应用中哪里会用到。
 
-http://localhost/a.XHTML不会匹配规则G，（因为!）。规则F，规则G属于排除法，符合匹配规则也不会匹配到，所以想想看实际应用中哪里会用到。
-
-访问 http://localhost/category/id/1111 则最终匹配到规则H，因为以上规则都不匹配，这个时候nginx转发请求给后端应用服务器，比如FastCGI（php），tomcat（jsp），nginx作为方向代理服务器存在。
+- 访问 http://localhost/category/id/1111 则最终匹配到规则H，因为以上规则都不匹配，这个时候nginx转发请求给后端应用服务器，比如FastCGI（php），tomcat（jsp），nginx作为方向代理服务器存在。
 
 
 
