@@ -4,7 +4,7 @@ switch case 合理运用可以降低if-else的工作量。
 
 语法结构：
 
-```
+```java
 switch(expression){
     case value :
        //语句
