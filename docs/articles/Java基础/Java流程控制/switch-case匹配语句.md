@@ -30,7 +30,7 @@ switch 语句可以拥有多个 case 语句。每个 case 后面跟一个要比�
 
 > break 和 default 是非必须的。default是没有匹配就会执行
 
-eg:
+switch-case例子：
 
 ```java
 String grade = "B";
