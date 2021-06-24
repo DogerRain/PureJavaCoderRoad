@@ -137,14 +137,22 @@ Eden区是连续的内存空间，因此在其上分配内存极快。
 - 串行：ParNew收集器
 - 并行：Parallel收集器
 - 并行：Parallel Old 收集器
-- 并发标记扫描CMS收集器
+- 并发 标记扫描CMS收集器
 - G1收集器
 
  ![ ](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201105180041789.png)
 
 >注：串行、并行 其它工作线程要暂停，并发不会。
 
+parallel 的意思是并行的意思。
+
+Concurrent 是并发的意思。
+
+
+
 jdk11中，发布最新的ZGC垃圾收集器。完全没有分代的概念，官方介绍是无空间碎片，时间可控，能超大堆收集。
+
+
 
 
 
@@ -182,17 +190,7 @@ jdk11中，发布最新的ZGC垃圾收集器。完全没有分代的概念，官
 >
 >-XX:+UseParalledlOldGC:设置并行年老代收集器
 >
->-XX:+UseConcMarkSweepGC:设置并发收集器
->
->**垃圾回收统计信息**
->
->-XX:+PrintGC
->
->-XX:+PrintGCDetails
->
->-XX:+PrintGCTimeStamps
->
->-Xloggc:filename
+>-XX:+UseConcMarkSweepGC:设置并发收集器（CMS）
 >
 >**并行收集器设置**
 >
@@ -207,6 +205,18 @@ jdk11中，发布最新的ZGC垃圾收集器。完全没有分代的概念，官
 >-XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。
 >
 >-XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时，使用的CPU数。并行收集线程数。
+>
+>**垃圾回收统计信息**
+>
+>-XX:+PrintGC
+>
+>-XX:+PrintGCDetails
+>
+>-XX:+PrintGCTimeStamps
+>
+>-Xloggc:filename
+>
+>
 
 
 
@@ -298,6 +308,10 @@ G1 Old Generation:
 
 `Garbage-First (G1) GC with 1 thread(s)` ，可以看到是使用了 G1 垃圾收集器。`Eden Space`、`Survivor Space`、`G1 Old Generation`分别说明了Eden区、Survivor区、老年代的大小。
 
+     常见的垃圾回收器标识：
+     Concurrent Mark-Sweep GC ：CMS回收器
+     Mark Sweep Compact GC：    串行GC（Serial GC）
+     Parallel GC with 2 thread(s)： 并行GC（ParNew）
 > 常用的命令行工具还有：jps、jstat、jinfo、jmap、jstack。而更多的可视化工具如jconsole、visualVM等暂不介绍，大家有兴趣请参阅相关文档。查看新生代内存占用、老年代内存占用、其他区内存占用和GC等四大方面的指标。
 
 
