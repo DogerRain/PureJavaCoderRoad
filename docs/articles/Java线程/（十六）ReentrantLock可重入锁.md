@@ -6,7 +6,7 @@ jdk中独占锁的实现除了使用关键字`synchronized`外，还可以使用
 
 **两者的相同点：**
 
-1、ReentrantLock和synchronized都是独占锁，只允许线程互斥的访问临界区。
+**1、ReentrantLock和synchronized都是独占锁，只允许线程互斥的访问临界区。**
 
 但是实现上两者不同：
 
@@ -14,7 +14,7 @@ synchronized加锁解锁的过程是隐式的，用户不用手动操作,优点�
 
 ReentrantLock需要手动加锁和解锁，且解锁的操作尽量要放在finally代码块中,保证线程正确释放锁。ReentrantLock操作较为复杂，但是因为可以手动控制加锁和解锁过程，在复杂的并发场景中能派上用场。
 
-2、ReentrantLock和synchronized都是可重入的。
+**2、ReentrantLock和synchronized都是可重入的。**
 
 synchronized因为可重入因此可以放在被递归执行的方法上，且不用担心线程最后能否正确释放锁；
 
@@ -101,7 +101,7 @@ public class FairReentrantLock {
 
 如果换成公平锁：
 
-```
+```java
 static Lock lock = new ReentrantLock(true);
 ```
 
@@ -387,9 +387,9 @@ ReentrantLock比起synchronized功能更加丰富，支持公平锁和非公平�
 
 而且提供了`tryLock()`锁限时等待，相比synchronized要更灵活。
 
-
+---
 
 参考:
 
-- https://www.cnblogs.com/takumicx/p/9338983.html
-- https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html
+- [https://www.cnblogs.com/takumicx/p/9338983.html](https://www.cnblogs.com/takumicx/p/9338983.html)
+- [https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html](https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html)
