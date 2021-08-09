@@ -113,9 +113,15 @@ public class Thread implements Runnable {
 **区别就是执行顺序：**
 
 继承Thread类的顺序是：
+
+```
 Thread.start()→Thread.run()
+```
 
 实现Runable接口顺序是：
+
+```
 Thread.start()→Thread.run()→Runable.run()
+```
 
 
