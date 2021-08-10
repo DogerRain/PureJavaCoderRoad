@@ -16,7 +16,9 @@ public final void wait() throws InterruptedException {
 
 `Object.wait(long)`要跟`Object.notify()/notifyAll()`搭配使用。
 
-wait 与 notify/notifyAll 方法必须在synchronized  同步代码块中使用，即要先对调用对象加锁，不放在synchronized 中则会在program runtime时扔出`“java.lang.IllegalMonitorStateException”`异常。
+wait 与 notify/notifyAll 方法必须在synchronized  同步代码块中使用，即要先对调用对象加锁，**不放在synchronized 中则会在program runtime时**会抛出`“java.lang.IllegalMonitorStateException”`异常。
+
+> 所以wait方法要在加锁的情况下使用
 
 如果指定了wait的时间，到时间会自动唤醒；否则就需要 notify /  notifyAll 去唤醒。
 
@@ -33,7 +35,7 @@ notifyAll() 调用后，会将全部线程由等待池移到锁池，然后参�
 yield()方法作用是放弃当前CPU资源，让给其他线程去使用，但是放弃时间不确定。
 
 
-Thread.yield()，一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁，由运行状态变为就绪状态， 但yield()从未导致线程转到等待/睡眠/阻塞状态，让OS再次选择线程。
+Thread.yield()，一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁，由运行状态变为就绪状态， 让OS再次选择线程，但yield()从未导致线程转到等待/睡眠/阻塞状态。
 
 作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证yield()达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。Thread.yield()不会导致阻塞。该方法与sleep()类似，只是不能由用户指定暂停多长时间。
 
@@ -233,10 +235,10 @@ daemonThread2 状态false
 2. 守护线程结束的时候，不会执行finally的语句块。
 3. setDaemon要先于start()前执行，否则会报  IllegalThreadStateException。
 
-
+---
 
 参考：
 
-[https://blog.csdn.net/pange1991/article/details/53860651](https://blog.csdn.net/pange1991/article/details/53860651)
+- [https://blog.csdn.net/pange1991/article/details/53860651](https://blog.csdn.net/pange1991/article/details/53860651)
 
-[https://www.cnblogs.com/baizhanshi/p/8289202.html](https://www.cnblogs.com/baizhanshi/p/8289202.html)
+- [https://www.cnblogs.com/baizhanshi/p/8289202.html](https://www.cnblogs.com/baizhanshi/p/8289202.html)
