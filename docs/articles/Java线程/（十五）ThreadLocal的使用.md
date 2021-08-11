@@ -12,7 +12,7 @@ ThreadLocal 有四个方法：
 
 2. 使用同一个threadLocal ，但每个线程的变量是独立都，对其他线程不可见，不需要每个线程都 new 一个对象，减少了内存的开销。
 
-
+> **在`set`,`get`,`remove`的时候都调用了`expungeStaleEntry`来将所有失效的`Entity`移除**
 
 ## ThreadLocal方法详解
 
@@ -126,13 +126,13 @@ ThreadLocalMap使用ThreadLocal的弱引用作为key，如果一个ThreadLocal�
 #### 强引用：
 
 ```java
-Object object= new Object();
+Object object = new Object();
 ```
 
-强引用用的最多，无论任何情况下，只要强引用关系还存在，垃圾收集器就永远不会回收掉被引用的对象。
+强引用用的最多，无论任何情况下，**只要强引用关系还存在，垃圾收集器就永远不会回收掉被引用的对象。**
 
 ```java
-object =null
+object = null
 ```
 
 对于一个普通的对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将相应（强）引用赋值为null，才可以当做垃圾被收集，当然具体回收时机还是要看垃圾收集策略。
@@ -147,7 +147,7 @@ WeakReference<String> weakReference = new WeakReference<>(str);
 str = null;
 ```
 
-在垃圾回收的一个周期内，jvm发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。
+在垃圾回收的一个周期内，**jvm发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。**
 
 所以，弱引用相对强引用来说，生命周期更短。
 
@@ -168,15 +168,15 @@ str = null;
 
 ![](https://images-1253198264.cos.ap-guangzhou.myqcloud.com/image-20200727183451141.png)
 
-看图，当主线程结束，栈帧销毁，强引用ThreadLocal没有了。再看一下红色部分，
+看图，当主线程结束，栈帧销毁，强引用ThreadLocal没有了。再看一下**红色部分**，
 
 如果是**强引用**， 线程的ThreadLocalMap里某个entry的 k 引用还指向这个ThreadLocal对象，这样会导致k指向的ThreadLocal对象以及 v 指向的对象都不能被jvm虚拟机gc回收，造成内存泄漏。
 
-如果是弱引用，就可以是ThreadLocal对象在执行完毕的时候被回收了，因为此时只有entry的k弱引用指向它，ThreadLocal回收后，k就指向为null了，但是v还是有值，也会有内存泄漏的风险，并不能保证不会内存泄漏。
+如果是弱引用，就可以是ThreadLocal对象在执行完毕的时候被回收了，因为此时只有entry的k弱引用指向它，ThreadLocal回收后，k 就指向为null了，但是v还是有值，也会有内存泄漏的风险，并不能保证不会内存泄漏。
 
 
 
-那ThreadLocal为什么要使用弱引用而不是强引用呢？
+**那ThreadLocal为什么要使用弱引用而不是强引用呢？**
 
 总结 就是是减少严重内存泄漏的风险。
 
@@ -184,6 +184,10 @@ str = null;
 2. 弱引用尚且有内存泄漏的风险，强引用更加。使用线程池的时候，自定义的线程数不规范，若使用强引用，内存泄漏的风险更高。
 
 
+
+引自：[谈谈ThreadLocal为什么被设计为弱引用 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/304240519)
+
+> 个人也觉得没必要让创建的ThreadLocal对象生命周期过短，ThreadLocal被设计出来本身就是用来跨**方法栈**获取当前线程set的数据或者无锁的获取线程安全的数据，空间换时间。只要让ThreadLocal具有线程的生命周期，就完全没必要使用remove方法，也完全不用担心内存泄漏的问题。
 
 ## 如何防止内存泄漏？
 
