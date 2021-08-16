@@ -381,7 +381,7 @@ events {
     accept_mutex on;   #设置网路连接序列化，防止惊群现象发生，默认为on
     multi_accept on;  #设置一个进程是否同时接受多个网络连接，默认为off
      # 事件驱动模型有 select|poll|kqueue|epoll|resig|/dev/poll|eventport
-    use epoll;   #使用epoll的I/O模型，建议使用默认
+    use epoll;   #使用 epoll的I/O模型，建议使用默认
     worker_connections 1024;   # 每个进程允许最大并发数
 }
 #-----------events块 END-----------
