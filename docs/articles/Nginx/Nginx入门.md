@@ -984,7 +984,164 @@ server {
 
 ```
 
-## 10、总结
+## 10、Nginx的第三方模块
+
+Nginx提供了很多第三方的模块，相对于一个插件，这里可以查询：https://www.nginx.com/nginx-wiki/build/dirhtml/modules/
+
+### 1、ngx_http_limit_req_module 限流模块
+
+#### 1、控制速率
+
+`ngx_http_limit_req_module`  模块提供了漏桶算法(leaky bucket)，可以限制单个IP的请求处理频率。
+
+如：
+
+**1.1 正常限流：**
+
+```bash
+http {
+	limit_req_zone 192.168.1.1 zone=myLimit:10m rate=5r/s;
+}
+
+server {
+	location / {
+		limit_req zone=myLimit;
+		rewrite / http://www.hac.cn permanent;
+	}
+}
+```
+
+参数解释：
+
+```
+key: 定义需要限流的对象。
+zone: 定义共享内存区来存储访问信息。
+rate: 用于设置最大访问速率。
+```
+
+表示基于客户端192.168.1.1进行限流，定义了一个大小为10M，名称为myLimit的内存区，用于存储IP地址访问信息。rate设置IP访问频率，rate=5r/s表示每秒只能处理每个IP地址的5个请求。Nginx限流是按照毫秒级为单位的，也就是说1秒处理5个请求会变成每200ms只处理一个请求。如果200ms内已经处理完1个请求，但是还是有有新的请求到达，这时候Nginx就会拒绝处理该请求。
+
+**1.2 突发流量限制访问频率**
+
+上面rate设置了 5r/s，如果有时候流量突然变大，超出的请求就被拒绝返回503了，突发的流量影响业务就不好了。
+
+这时候可以加上**burst** 参数，一般再结合 **nodelay** 一起使用。
+
+```bash
+server {
+	location / {
+		limit_req zone=myLimit burst=20 nodelay;
+		rewrite / http://www.hac.cn permanent;
+	}
+}
+```
+
+`burst=20 nodelay` 表示这20个请求立马处理，不能延迟，相当于特事特办。不过，即使这20个突发请求立马处理结束，后续来了请求也不会立马处理。burst=20 相当于缓存队列中占了20个坑，即使请求被处理了，这20个位置这只能按 100ms一个来释放。
+
+#### 2、控制并发连接数
+
+`ngx_http_limit_conn_module` 提供了限制连接数功能。
+
+```
+limit_conn_zone $binary_remote_addr zone=perip:10m;
+limit_conn_zone $server_name zone=perserver:10m;
+
+server {
+    ...
+    limit_conn perip 10;
+    limit_conn perserver 100;
+}
+```
+
+
+
+`limit_conn perip 10` 作用的key 是 `$binary_remote_addr`，表示限制单个IP同时最多能持有10个连接。
+
+`limit_conn perserver 100` 作用的key是 `$server_name`，表示虚拟主机(server) 同时能处理并发连接的总数。
+
+> 注：**limit_conn perserver 100** 作用的key是 **$server_name**，表示虚拟主机(server) 同时能处理并发连接的总数。
+
+
+
+#### 拓展：
+
+如果不想做限流，还可以设置白名单：
+
+利用 Nginx `ngx_http_geo_module` 和 `ngx_http_map_module` 两个工具模块提供的功能。
+
+```
+##定义白名单ip列表变量
+geo $limit {
+    default 1;
+    10.0.0.0/8 0;
+    192.168.0.0/10 0;
+    81.56.0.35 0;
+}
+
+map $limit $limit_key {
+    0 "";
+    1 $binary_remote_addr;
+}
+# 正常限流设置
+limit_req_zone $limit_key zone=myRateLimit:10m rate=10r/s;
+```
+
+**geo** 对于白名单 将返回0，不限流；其他IP将返回1，进行限流。
+
+具体参考：http://nginx.org/en/docs/http/ngx_http_geo_module.html
+
+
+
+除此之外：
+
+`ngx_http_core_module` 还提供了限制数据传输速度的能力(即常说的下载速度)
+
+```
+location /flv/ {
+    flv;
+    limit_rate_after 500m;
+    limit_rate       50k;
+}
+```
+
+针对每个请求，表示客户端下载前500m的大小时不限速，下载超过了500m后就限速50k/s。
+
+### 2、ngx_http_ssl_module模块
+
+`ngx_http_ssl_module`模块提供对HTTPS必要的支持。
+
+常用配置：
+
+```
+1、ssl on | off; 
+    为指定虚拟机启用HTTPS protocol，建议用listen指令代替
+    可用位置：http, server
+
+2、ssl_certificate file; 
+    当前虚拟主机使用PEM格式的证书文件
+    可用位置：http, server
+
+3、ssl_certificate_key file; 
+    当前虚拟主机上与其证书匹配的私钥文件
+    可用位置：http, server
+
+4、ssl_protocols [SSLv2] [SSLv3] [TLSv1] [TLSv1.1] [TLSv1.2]; 
+    支持ssl协议版本，默认为后三个
+    可用位置：http, server
+
+5、ssl_session_cache off | none | [builtin[:size]] [shared:name:size]; 
+    builtin[:size]：使用OpenSSL内建缓存，为每worker进程私有
+    [shared:name:size]：在各worker之间使用一个共享的缓存
+    可用位置：http, server
+
+6、ssl_session_timeout time; 
+    客户端连接可以复用sslsession cache中缓存的ssl参数的有效时长，默认5m
+    可用位置：http, server
+```
+
+
+
+## 11、总结
 
 以上就是一些关于Nginx的简单用法，网上的资料也很多，有兴趣的可以自己学习一下，比如说 图片服务器、文件下载服务器、动静分离、跨域解决等等的实现。
 
@@ -992,7 +1149,7 @@ Nginx更详细的说明，建议大家去[Nginx的官方网站](http://nginx.org
 
 
 
-
+---
 
 参考：
 
