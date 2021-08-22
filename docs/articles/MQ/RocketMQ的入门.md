@@ -34,3 +34,13 @@
 ## 2、搭建环境
 
 https://blog.csdn.net/weidong22/article/details/79246726
+
+
+
+为什么有有序？
+
+
+
+如果不指定MessageQueue，默认是轮流发到不同的MessageQueue上的，所以消费的时候就可能回乱序。
+
+如果指定了，就会把这批消息放在同一个MessageQueue。
