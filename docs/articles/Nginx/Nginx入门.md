@@ -942,11 +942,11 @@ http {
 }
 ```
 
-开启gzip对网站的性能有很大的提升，比如说我的网站，这是没有开启压缩前的大小，可以看到是`50.2kB`，time是100ms
+开启gzip对网站的性能有很大的提升，比如说我的网站，这是**没有开启gzip压缩**前的大小，可以看到是`50.2kB`，time是`100ms`
 
 ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164206239.png)
 
-这是开启gzip压缩后的大小，可以看到是`11.5kB`，time是88ms： ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164842720.png)
+这是**开启gzip压缩**后的大小，可以看到是`11.5kB`，time是`88ms`： ![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210401/image-20210518164842720.png)
 
 比如说掘金的网站也是使用了gzip，可以通过 content-encoding 进行判断：
 
@@ -1013,7 +1013,7 @@ server {
 
 参数解释：
 
-```
+```shell
 key: 定义需要限流的对象。
 zone: 定义共享内存区来存储访问信息。
 rate: 用于设置最大访问速率。
@@ -1042,7 +1042,7 @@ server {
 
 `ngx_http_limit_conn_module` 提供了限制连接数功能。
 
-```
+```shell
 limit_conn_zone $binary_remote_addr zone=perip:10m;
 limit_conn_zone $server_name zone=perserver:10m;
 
@@ -1069,7 +1069,7 @@ server {
 
 利用 Nginx `ngx_http_geo_module` 和 `ngx_http_map_module` 两个工具模块提供的功能。
 
-```
+```shell
 ##定义白名单ip列表变量
 geo $limit {
     default 1;
@@ -1096,7 +1096,7 @@ limit_req_zone $limit_key zone=myRateLimit:10m rate=10r/s;
 
 `ngx_http_core_module` 还提供了限制数据传输速度的能力(即常说的下载速度)
 
-```
+```shell
 location /flv/ {
     flv;
     limit_rate_after 500m;
@@ -1112,7 +1112,7 @@ location /flv/ {
 
 常用配置：
 
-```
+```shell
 1、ssl on | off; 
     为指定虚拟机启用HTTPS protocol，建议用listen指令代替
     可用位置：http, server
