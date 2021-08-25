@@ -56,13 +56,13 @@ public class ReentrantLockDeadLock {
 
 首先使用 `jps` 命令列出当前的Java进程：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824103325691.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824103325691.png)
 
-找到疑似死锁的例子，找到PID，执行 `jstack -l 20148`
+找到疑似死锁的例子，找到 PID，执行 `jstack -l 20148`
 
 往下找，会显示一段 deadlock 的关键字：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824112216025.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824112216025.png)
 
 即可定位到死锁的类和行数。
 
@@ -72,11 +72,11 @@ jconsole 位于 JDK 的 bin 目录，双击即可运行。
 
 如下，选择需要建立连接的进程。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824101138022.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824101138022.png)
 
 切换到 **线程**，再点击下方的 **检测死锁** ，即可查看死锁的情况：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824112452610.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824112452610.png)
 
 除此之外，jconsole 还可以查看堆内存、CPU、线程数 等其他信息。
 
@@ -86,11 +86,11 @@ jvisualvm 也在 JDK 的 bin 目录。
 
 选择本地的进程，上方切换至 **线程** ，再点击一下 **线程Dump** 即可。
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824113514128.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824113514128.png)
 
 点击后可以看到线程的状态日志，可以看到死锁的信息：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824113643717.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824113643717.png)
 
 ## 4、jmc
 
@@ -98,10 +98,10 @@ jvisualvm 也在 JDK 的 bin 目录。
 
 打开你需要监测的进程：
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824114429643.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824114429643.png)
 
-![image-20210824114540025](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824114540025.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824114540025.png)
 
 下方切换到 **线程**
 
-![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\开发辅助工具\picture\image-20210824135124607.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-20210801/image-20210824135124607.png)
