@@ -294,7 +294,7 @@ Thread1 : 5  --->>>10
 
 Thread2先进入，拿到对象锁 `testDemoSynchronizedfor`，Thread1 发现自己也是 `testDemoSynchronizedfor`，但是被Thread2先进入锁住了，只能等待。
 
-看看synchronized (TestDemoSynchronized.class) 会怎么样：
+看看`synchronized (TestDemoSynchronized.class)` 会怎么样：
 ```java
 public class TestDemoSynchronized implements Runnable {
     private Integer y = 0;
@@ -357,9 +357,15 @@ Thread2 : 5  --->>>10
 
 有人可能会问，为什么y的自增又正确了呢？ 因为线程拿到的是整个对象，setNumber 也在synchronized里面，而且最重要的一点是：**synchronize是 能保证原子性**。（即setNumber()方法的 y++）
 
-再看看下面的例子：
 
 
+注意：这种方法和 `synchronized static` 修饰的方法一样的效果。
+
+ 当`synchronized`修饰一个`static`方法时，多线程下，获取的是类锁（即Class本身，注意：不是实例），作用范围是整个静态方法，作用的对象是这个类的所有对象。
+
+
+
+接着再看看下面的例子：
 
 ### 3.4、demo4—只锁一部分，不锁原子部分
 
