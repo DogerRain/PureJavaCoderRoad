@@ -145,7 +145,7 @@ happen-before，它不能简单地说前后关系，是因为它不仅仅是对�
 
 double-check-locking 
 
-先来看看常用的单例模式：
+先来看看常用第一种的单例模式：
 
 ```java
 public class SingleInstance {
@@ -163,6 +163,8 @@ public class SingleInstance {
 假如两个并发线程同时 getInstance()，线程A先判断是否为null，即`// 1` 处；刚判断完jvm将cpu资源给了线程B，由于线程B没有执行到`// 2` 处，所以 instance 还是空的，线程B就new了，然后又切换为线程A，又new一次，这样就会导致单例类被实例化两次。
 
 > 既然需要有序性，可以加synchronized
+
+第二次改进：
 
 ```java
 public class SingleInstance {
@@ -184,6 +186,8 @@ public class SingleInstance {
 上面是加了`synchronized`之后的版本，会避免多个线程产生多个实例，但是这种方法会影响性能。
 
 可以改成这样：
+
+第三次改进：
 
 ```java
 public class SingleInstance {
@@ -208,9 +212,26 @@ public class SingleInstance {
 
 1. 给SingleInstance的实例分配内存。
 
-2. 初始化SingleInstance的构造器
+2. 初始化SingleInstance的构造器。
 
 3. 将instance对象**指向**分配的内存空间（注意到这步instance就非null了）。
 
 但是，由于Java编译器允许处理器乱序执行（out-of-order），以及JDK1.5之前JMM（Java Memory Medel）中Cache、寄存器到主内存回写顺序的规定，上面的第2点和第3点的顺序是无法保证的，也就是说，执行顺序可能是`1-2-3`也可能是`1-3-2`，如果是后者，并且在3执行完毕、2未执行之前，被切换到线程二上，这时候instance因为已经在线程一内执行过了第三点，instance已经是非空了，所以线程二直接拿走instance，然后使用，然后就会报错了。
+
+```java
+public class SingleInstance {
+	private volatile static SingleInstance instance = null;
+
+    public static SingleInstance getInstanceSync() {
+        if (instance == null) {
+            synchronized (SingleInstance.class) {
+                if (instance == null) { // 1
+                    instance = new SingleInstance();// 2
+                }
+            }
+        }
+        return instance;
+    }
+}
+```
 
