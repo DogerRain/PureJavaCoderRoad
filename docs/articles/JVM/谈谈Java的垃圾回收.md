@@ -144,11 +144,9 @@ Eden区是连续的内存空间，因此在其上分配内存极快。
 
  ![ ](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img/image-20201105180041789.png)
 
+>parallel 的意思是并行的意思。concurrent 是并发的意思。
+>
 >注：串行、并行 其它工作线程要暂停，并发不会。
-
-parallel 的意思是并行的意思。
-
-Concurrent 是并发的意思。
 
 
 
