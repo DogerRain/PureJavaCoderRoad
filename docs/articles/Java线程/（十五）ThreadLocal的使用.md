@@ -4,7 +4,7 @@ ThreadLocal称为线程本地变量，其为变量在每个线程中都创建了
 
 ThreadLocal 有四个方法：
 
-![ThreadLocal方法](https://images-1253198264.cos.ap-guangzhou.myqcloud.com/image-20200727101151586.png)
+![ThreadLocal方法](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202109/image-20200727101151586.png)
 
 ## ThreadLocal作用
 
@@ -166,7 +166,7 @@ str = null;
 
 上个图理解一下：
 
-![](https://images-1253198264.cos.ap-guangzhou.myqcloud.com/image-20200727183451141.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202109/image-20200727183451141.png)
 
 看图，当主线程结束，栈帧销毁，强引用ThreadLocal没有了。再看一下**红色部分**，
 
