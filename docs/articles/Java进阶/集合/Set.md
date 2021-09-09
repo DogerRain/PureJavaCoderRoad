@@ -42,7 +42,7 @@ HashSet是Set接口的典型实现，大多数时候使用Set集合时一般是�
 
 HashSet按Hash算法来存储集合中的元素，因此具有很好的存取和查找性能。底层数据结构是**哈希表**。
 
-```
+```java
 Set set = new HashSet();
 ```
 

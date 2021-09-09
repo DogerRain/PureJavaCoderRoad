@@ -121,7 +121,7 @@ LinkedList间接的实现了List接口（说明LinkedList是有list的特性的�
 
 
 
-**Arraylist 与 LinkedList 异同：**
+**ArrayList 与 LinkedList 异同：**
 
 同：两者都是线程不安全的。
 

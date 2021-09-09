@@ -2,7 +2,7 @@
 
 回顾一下Java集合的关系：
 
-![](F:\笔记\docsifyLearnJavaToFindAJob\docs\articles\Java进阶\集合\picture\image-20210128105508292.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210128105508292.png)
 
 Java的集合都是实现Iterator接口，主要的三个集合是：
 
@@ -68,7 +68,7 @@ Collection 接口有 3 种子类型集合: `List`、`Set` 和 `Queue`
 
 Collection 的API：
 
-![](F:\笔记\docsifyLearnJavaToFindAJob\docs\articles\Java进阶\集合\picture\image-20210128153543008.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/Home/image-20210128153543008.png)
 
 Collection 是一个对集合操作的接口，定义了未实现的方法，这也是接口的一种编程思想，只要实现类实现Collection 接口，就必须实现这些方法。
 

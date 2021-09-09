@@ -64,9 +64,9 @@ import java.util.Map;
 
 Map是一个接口，既然是接口，那就必须有实现类才行，常见的Map实现类有三个：
 
-- **HashMap**
-- **HashTable**
-- **TreeMap**
+- HashMap
+- HashTable
+- TreeMap
 
 
 
@@ -146,11 +146,11 @@ HashMap 是一个重点，也是日常开发中使用比较多的数据结构，
 
 
 
-### 2、Hashtable
+### 2、HashTable
 
 **HahTable对象的key、value值均不可为null。**
 
-```
+```java
 Map<Integer, String> hashtable = new Hashtable<>();
 ```
 
@@ -166,7 +166,7 @@ Map<Integer, String> hashtable = new Hashtable<>();
 
 > 因为TreeMap要实现Comparator 接口进行比较，所以key不可以为null
 
-```
+```java
 Map<Integer, String> treeMap = new TreeMap<>();
 ```
 
@@ -184,7 +184,7 @@ LinkedHashMap 用的比较少，一般情况下很少使用。
 
 同HashMap相比，ConcurrentHashMap不仅保证了访问的线程安全性，而且在效率上与HashTable相比，也有较大的提高。除了**加锁**，原理上和HashMap无太大区别。
 
-另外，HashMap 的键值对允许有null，但是 ConCurrentHashMap 都不允许。
+另外，HashMap 的键值对允许有null，但是 ConcurrentHashMap都不允许。
 
 
 
