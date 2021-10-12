@@ -6,41 +6,340 @@
 
 
 
-## 1、几种消息队列的比较
+> 本文是通过以下学习而总结的
+>
+> 《RocketMQ从入门到实践》——丁威
+>
+> 《Apache RocketMQ源码解析》——丁威
+>
+>   B站 
+>
 
-### kafka
+# 1、RocketMQ是什么
 
-优点：吞吐量大，在常规机器配置下，单机可以达到几十万的QPS，非常强悍。性能高，基本发消息都是毫秒级。可用性高，支持集群，部分机器可以宕机。
+RcoketMQ 是一款低延迟、高可靠、可伸缩、易于使用的**消息中间件**。
 
-缺点：丢数据，kafka收到消息后会写入一个磁盘缓冲区，并没有直接落地到硬盘，所以要是机器本身故障了，可能会导致磁盘缓冲区里的数据丢失。功能比较单一。 一般适用于日志分析场景。kafkaStrem流式计算。
+什么是中间件，可以参考： [消息队列入门.md](消息队列入门.md) 
 
-### RabbitMQ
+# 2、RocketMQ的组成
 
-优点：可以保证数据不丢失，也能保证高可用性。支持高级功能，如死信队列、消息重试等。
+> RocketMQ官方文档：https://github.com/apache/rocketmq/blob/master/docs/cn/README.md
 
-缺点：吞吐量比较低，一般就是每秒几万的级别，而且消息堆积量太高就会影响整体性能。erlang语言编写，很难扩展。
+RocketMQ主要由 Producer、Broker、Consumer 三部分组成，其中Producer 负责生产消息，Consumer 负责消费消息，Broker 负责存储消息。
 
-### RocketMQ
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202109/image-20211012091010457.png)
 
-优点：几乎同时解决了kafka和RabbitMQ的缺陷吞吐量高，单机可以达到10WQPS，高可用，性能高，也支持延迟消息、事务消息、消息回溯、死信队列等。消息积压也可以很多。使用java开发，可以灵活扩展
+### 1、Client
 
-缺点：官方文档比较简单，社区活跃度没有RabbitMQ高。云上版本比开源版本强，所以要用好，基
-本上都需要定制。客户端只支持java
+消息客户端，包括 Producer(消息发送者)和 Consumer(消费消费者)．
+
+#### Producer
+
+消息发布的角色，支持分布式集群方式部署。Producer通过MQ的负载均衡模块选择相应的Broker集群队列进行消息投递，投递的过程支持快速失败并且低延迟。
+
+#### Consumer
+
+消息消费的角色，支持分布式集群方式部署。支持以push推，pull拉两种模式对消息进行消费。同时也支持集群方式和广播方式的消费，它提供实时消息订阅机制，可以满足大多数用户的需求。
+
+客户端在同一 时间只会连接一台 nameserver，只有在连接出现异常时才会向尝试连接另外一台。客户端每隔 30s 向 Nameserver 发起 topic 的路由信息查询。
+
+### 2、Nameserver 
+
+topic 的路由注册中心（类似于zookeeper），为客户端根据 Topic 提供路由服务，从而引导客户端向 Broker （支持Broker的动态注册与发现）发送消息。Nameserver 之间的节点不通信。路由信息在 Nameserver 集群中数据一致性采取的最终一致性。 主要有两个功能：
+
+- Broker管理，NameServer接受Broker集群的注册信息并且保存下来作为路由信息的基本数据。然后提供心跳检测机制，检查Broker是否还存活
+- 路由信息管理，每个NameServer将保存关于Broker集群的整个路由信息和用于客户端查询的队列信息。然后Producer和Conumser通过NameServer就可以知道整个Broker集群的路由信息，从而进行消息的投递和消费
+
+NameServer通常也是集群的方式部署，**各实例间相互不进行信息通讯**。**Broker是向每一台NameServer注册自己的路由信息，所以每一个NameServer实例上面都保存一份完整的路由信息。**当某个NameServer因某种原因下线了，Broker仍然可以向其它NameServer同步其路由信息，Producer,Consumer仍然可以动态感知Broker的路由的信息。
+
+### 3、Broker 
+
+消息存储服务器，Broker主要负责消息的存储、投递和查询以及服务高可用保证，分为两种角色：Master 与 Slave，上图中呈现的就是 2 主 2 从的部署架构。
+
+在 RocketMQ 中，主服务承担读写操作，从服务器作为一个备份，当主服务器存在压力时，从服务器可以承担读服务（消息消费）。所有 Broker，包含 Slave 服务器每隔 30s 会向 Nameserver 发送心跳包，心跳包中会包含存在在 Broker 上所有的 topic 的路由信息。
 
 
 
+结合部署架构图，描述集群工作流程：
+
+- 启动NameServer，NameServer起来后监听端口，等待Broker、Producer、Consumer连上来，相当于一个路由控制中心。
+- Broker启动，跟所有的NameServer保持长连接，定时发送心跳包。心跳包中包含当前Broker信息(IP+端口等)以及存储所有Topic信息。注册成功后，NameServer集群中就有Topic跟Broker的映射关系。
+- 收发消息前，先创建Topic，创建Topic时需要指定该Topic要存储在哪些Broker上，也可以在发送消息时自动创建Topic。
+- Producer发送消息，启动时先跟NameServer集群中的其中一台建立长连接，并从NameServer中获取当前发送的Topic存在哪些Broker上，轮询从队列列表中选择一个队列，然后与队列所在的Broker建立长连接从而向Broker发消息。
+- Consumer跟Producer类似，跟其中一台NameServer建立长连接，获取当前订阅Topic存在哪些Broker上，然后直接跟Broker建立连接通道，开始消费消息。
 
 
-## 2、搭建环境
+
+借用一张图：
+
+![](F:\笔记\PureJavaCoderRoad（Java基础教程）\docs\articles\MQ\picture\image-20210930103755270.png)
+
+
+
+RocketMQ消息丢失问题：
+
+- https://blog.csdn.net/u014634309/article/details/105086687
+- https://blog.csdn.net/leeasony/article/details/104857576
+
+# 3、基本概念
+
+在熟悉RocketMQ前，我在RocketMQ的官方网站直接复制以下概念过来，便于理解：
+
+------
+
+## 1 消息模型（Message Model）
+
+RocketMQ主要由 Producer、Broker、Consumer 三部分组成，其中Producer 负责生产消息，Consumer 负责消费消息，Broker 负责存储消息。Broker 在实际部署过程中对应一台服务器，每个 Broker 可以存储多个Topic的消息，每个Topic的消息也可以分片存储于不同的 Broker。Message Queue 用于存储消息的物理地址，每个Topic中的消息地址存储于多个 Message Queue 中。ConsumerGroup 由多个Consumer 实例构成。
+
+## 2 消息生产者（Producer）
+
+负责生产消息，一般由业务系统负责生产消息。一个消息生产者会把业务应用系统里产生的消息发送到broker服务器。RocketMQ提供多种发送方式，同步发送、异步发送、顺序发送、单向发送。同步和异步方式均需要Broker返回确认信息，单向发送不需要。
+
+## 3 消息消费者（Consumer）
+
+负责消费消息，一般是后台系统负责异步消费。一个消息消费者会从Broker服务器拉取消息、并将其提供给应用程序。从用户应用的角度而言提供了两种消费形式：拉取式消费、推动式消费。
+
+## 4 主题（Topic）
+
+表示一类消息的集合，每个主题包含若干条消息，每条消息只能属于一个主题，是RocketMQ进行消息订阅的基本单位。
+
+## 5 代理服务器（Broker Server）
+
+消息中转角色，负责存储消息、转发消息。代理服务器在RocketMQ系统中负责接收从生产者发送来的消息并存储、同时为消费者的拉取请求作准备。代理服务器也存储消息相关的元数据，包括消费者组、消费进度偏移和主题和队列消息等。
+
+## 6 名字服务（Name Server）
+
+名称服务充当路由消息的提供者。生产者或消费者能够通过名字服务查找各主题相应的Broker IP列表。多个Namesrv实例组成集群，但相互独立，没有信息交换。
+
+## 7 拉取式消费（Pull Consumer）
+
+Consumer消费的一种类型，应用通常主动调用Consumer的拉消息方法从Broker服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。
+
+## 8 推动式消费（Push Consumer）
+
+Consumer消费的一种类型，该模式下Broker收到数据后会主动推送给消费端，该消费模式一般实时性较高。
+
+## 9 生产者组（Producer Group）
+
+同一类Producer的集合，这类Producer发送同一类消息且发送逻辑一致。如果发送的是事务消息且原始生产者在发送之后崩溃，则Broker服务器会联系同一生产者组的其他生产者实例以提交或回溯消费。
+
+## 10 消费者组（Consumer Group）
+
+同一类Consumer的集合，这类Consumer通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。RocketMQ 支持两种消息模式：集群消费（Clustering）和广播消费（Broadcasting）。
+
+## 11 集群消费（Clustering）
+
+集群消费模式下,相同Consumer Group的每个Consumer实例平均分摊消息。
+
+## 12 广播消费（Broadcasting）
+
+广播消费模式下，相同Consumer Group的每个Consumer实例都接收全量的消息。
+
+## 13 普通顺序消息（Normal Ordered Message）
+
+普通顺序消费模式下，消费者通过同一个消息队列（ Topic 分区，称作 Message Queue） 收到的消息是有顺序的，不同消息队列收到的消息则可能是无顺序的。
+
+## 14 严格顺序消息（Strictly Ordered Message）
+
+严格顺序消息模式下，消费者收到的所有消息均是有顺序的。
+
+## 15 消息（Message）
+
+消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。RocketMQ中每个消息拥有唯一的Message ID，且可以携带具有业务标识的Key。系统提供了通过Message ID和Key查询消息的功能。
+
+## 16 标签（Tag）
+
+为消息设置的标志，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化RocketMQ提供的查询系统。消费者可以根据Tag实现对不同子主题的不同消费逻辑，实现更好的扩展性。
+
+# 4、搭建环境
 
 https://blog.csdn.net/weidong22/article/details/79246726
 
 
 
-为什么有有序？
 
 
 
-如果不指定MessageQueue，默认是轮流发到不同的MessageQueue上的，所以消费的时候就可能回乱序。
+
+为什么有序？
+
+如果不指定MessageQueue，默认是轮流发到不同的 MessageQueue上的，所以消费的时候就可能回乱序。
 
 如果指定了，就会把这批消息放在同一个MessageQueue。
+
+
+
+# 5、使用
+
+## 1、简单使用
+
+### 5.1 加入依赖
+
+maven:
+
+```xml
+<dependency>
+    <groupId>org.apache.rocketmq</groupId>
+    <artifactId>rocketmq-client</artifactId>
+    <version>4.3.0</version>
+</dependency>
+```
+
+
+gradle
+
+```properties
+compile 'org.apache.rocketmq:rocketmq-client:4.3.0'
+```
+
+
+
+### 5.2、消息发送
+
+producer消息的发送分为三种：同步消息、异步消息、单向消息。前两者的消息是可靠的，因为会有ACK应答，而单向消息 只管发送。
+
+#### 1、Producer端发送同步消息
+
+同步消息使用广泛，如短信，一些重要的消息。
+
+```java
+public class SyncProducer {
+	public static void main(String[] args) throws Exception {
+    	// 实例化消息生产者Producer
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+    	// 设置NameServer的地址
+    	producer.setNamesrvAddr("localhost:9876");
+    	// 启动Producer实例
+        producer.start();
+    	for (int i = 0; i < 100; i++) {
+    	    // 创建消息，并指定Topic，Tag和消息体
+    	    Message msg = new Message("TopicTest" /* Topic */,
+        	"TagA" /* Tag */,
+        	("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+        	);
+        	// 发送消息到一个Broker
+            SendResult sendResult = producer.send(msg);
+            // 通过sendResult返回消息是否成功送达
+            System.out.printf("%s%n", sendResult);
+    	}
+    	// 如果不再发送消息，关闭Producer实例。
+    	producer.shutdown();
+    }
+}
+```
+
+#### 2、发送异步消息
+
+异步消息通常用在对响应时间敏感的业务场景，即发送端不能容忍长时间地等待Broker的响应。
+
+```java
+public class AsyncProducer {
+	public static void main(String[] args) throws Exception {
+    	// 实例化消息生产者Producer
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+    	// 设置NameServer的地址
+        producer.setNamesrvAddr("localhost:9876");
+    	// 启动Producer实例
+        producer.start();
+        producer.setRetryTimesWhenSendAsyncFailed(0);
+	
+	int messageCount = 100;
+        // 根据消息数量实例化倒计时计算器
+	final CountDownLatch2 countDownLatch = new CountDownLatch2(messageCount);
+    	for (int i = 0; i < messageCount; i++) {
+                final int index = i;
+            	// 创建消息，并指定Topic，Tag和消息体
+                Message msg = new Message("TopicTest",
+                    "TagA",
+                    "OrderID188",
+                    "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+                // SendCallback接收异步返回结果的回调
+                producer.send(msg, new SendCallback() {
+                    @Override
+                    public void onSuccess(SendResult sendResult) {
+                        System.out.printf("%-10d OK %s %n", index,
+                            sendResult.getMsgId());
+                    }
+                    @Override
+                    public void onException(Throwable e) {
+      	              System.out.printf("%-10d Exception %s %n", index, e);
+      	              e.printStackTrace();
+                    }
+            	});
+    	}
+	// 等待5s
+	countDownLatch.await(5, TimeUnit.SECONDS);
+    	// 如果不再发送消息，关闭Producer实例。
+    	producer.shutdown();
+    }
+}
+```
+
+#### 3、单向发送消息
+
+这种方式主要用在不特别关心发送结果的场景，例如日志发送。
+
+```java
+public class OnewayProducer {
+	public static void main(String[] args) throws Exception{
+    	// 实例化消息生产者Producer
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+    	// 设置NameServer的地址
+        producer.setNamesrvAddr("localhost:9876");
+    	// 启动Producer实例
+        producer.start();
+    	for (int i = 0; i < 100; i++) {
+        	// 创建消息，并指定Topic，Tag和消息体
+        	Message msg = new Message("TopicTest" /* Topic */,
+                "TagA" /* Tag */,
+                ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+        	);
+        	// 发送单向消息，没有任何返回结果
+        	producer.sendOneway(msg);
+
+    	}
+    	// 如果不再发送消息，关闭Producer实例。
+    	producer.shutdown();
+    }
+}
+```
+
+### 5.3 消费消息
+
+```java
+public class Consumer {
+
+	public static void main(String[] args) throws InterruptedException, MQClientException {
+
+    	// 实例化消费者
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
+
+    	// 设置NameServer的地址
+        consumer.setNamesrvAddr("localhost:9876");
+
+    	// 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息
+        consumer.subscribe("TopicTest", "*");
+    	// 注册回调实现类来处理从broker拉取回来的消息
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
+                // 标记该消息已经被成功消费
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+        // 启动消费者实例
+        consumer.start();
+        System.out.printf("Consumer Started.%n");
+	}
+}
+```
+
+## 2、顺序消息样例
+
+消息有序指的是可以按照消息的发送顺序来消费(FIFO)。RocketMQ可以严格的保证消息有序，可以分为分区有序或者全局有序。
+
+顺序消费的原理解析，在默认的情况下消息发送会采取Round Robin轮询方式把消息发送到不同的queue(分区队列)；而消费消息的时候从多个queue上拉取消息，这种情况发送和消费是不能保证顺序。但是如果控制发送的顺序消息只依次发送到同一个queue中，消费的时候只从这个queue上依次拉取，则就保证了顺序。**当发送和消费参与的queue只有一个，则是全局有序；如果多个queue参与，则为分区有序，即相对每个queue，消息都是有序的。**
+
+下面用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个OrderId获取到的肯定是同一个队列。
+
