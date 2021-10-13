@@ -157,23 +157,19 @@ https://blog.csdn.net/weidong22/article/details/79246726
 
 
 
-
-
-
-
 为什么有序？
 
 如果不指定MessageQueue，默认是轮流发到不同的 MessageQueue上的，所以消费的时候就可能回乱序。
 
 如果指定了，就会把这批消息放在同一个MessageQueue。
 
-
+https://blog.csdn.net/leexide/article/details/80035470
 
 # 5、使用
 
 ## 1、简单使用
 
-### 5.1 加入依赖
+### 5.1、 加入依赖
 
 maven:
 
@@ -304,7 +300,7 @@ public class OnewayProducer {
 }
 ```
 
-### 5.3 消费消息
+### 5.3 、消息消费
 
 ```java
 public class Consumer {
@@ -335,6 +331,10 @@ public class Consumer {
 }
 ```
 
+
+
+
+
 ## 2、顺序消息样例
 
 消息有序指的是可以按照消息的发送顺序来消费(FIFO)。RocketMQ可以严格的保证消息有序，可以分为分区有序或者全局有序。
@@ -342,4 +342,66 @@ public class Consumer {
 顺序消费的原理解析，在默认的情况下消息发送会采取Round Robin轮询方式把消息发送到不同的queue(分区队列)；而消费消息的时候从多个queue上拉取消息，这种情况发送和消费是不能保证顺序。但是如果控制发送的顺序消息只依次发送到同一个queue中，消费的时候只从这个queue上依次拉取，则就保证了顺序。**当发送和消费参与的queue只有一个，则是全局有序；如果多个queue参与，则为分区有序，即相对每个queue，消息都是有序的。**
 
 下面用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个OrderId获取到的肯定是同一个队列。
+
+
+
+
+
+# 6、故障
+
+## 1、nameserver 挂掉
+
+1. NameServer互相独立，彼此没有通信关系，单台NameServer挂掉，不影响其他NameServer；
+2. broker与所有NameServer进行定时注册，以便告知NameServer自己还活着。**Broker每隔30秒向所有NameServer发送心跳**，心跳包含了自身的topic配置信息。NameServer每隔10秒，扫描所有还存活的broker连接，如果某个连接的最后更新时间与当前时间差值超过2分钟，则断开此连接。如果nameserver全挂了，则导致无法确定哪些broker存活，哪些broker宕机，如果broker宕机则导致消息发送失败。
+3. consumer随机与一个NameServer建立长连接，如果该NameServer宕机，则从NameServer列表中查找下一个进行连接。consumer主要从NameServer中根据topic查询broker的地址，查到就会缓存到客户端，并向提供topic服务的master、slave建立长连接，且定时向master、slave发送心跳。如果broker宕机，则NameServer会将其剔除，而consumer端的定时任务每30秒执行一次，会将topic对应的broker地址拉取下来，**因此尽管nameserver全部宕机了，consumer依然能消费;**
+4. Producer随机与一个NameServer建立长连接，默认每隔30秒从NameServer获取topic的最新队列情况并缓存，这就表示如果某个broker master宕机，producer最多30秒才能感知，在这个期间，发往该broker master的消息将会失败。Producer会向提供topic服务的master建立长连接，且定时向master发送心跳。**Producer与所有的master连接，但不能向slave写入**。 
+
+
+
+## 2、broker挂掉
+
+broker挂掉需要根据不同的部署方式进行分析：
+
+- 单个 Master
+- 多 Master（无salve）
+- 多Master多Slave（异步复制）
+- 多Master多Slave模式（同步双写）
+
+### 1、单个 Master
+
+这种挂掉就无了，一旦Broker重启或者宕机时，会导致整个服务不可用，也不推荐使用。
+
+### 2、多 Master（无salve）
+
+例如 2 个 Master 或者 3 个 Master。
+
+当单台机器宕机期间，这台机器上**未被消费的消息**在机器恢复之前不可订阅，消息实时性会受到受到影响。
+
+假如有两个master：broker-a 和 broker-b ，假如 broker-a 宕机了，生产者和消费者都不能通信，但是消息不会丢失，应用也不会报错，只有 broker-a 重启后，才能完成消费。
+
+### 3、多Master多Slave（异步复制）
+
+每个 Master 配置一个 Slave，有多对Master-Slave，这是一种HA（高可用）模式。
+
+这种模式是对上一种模式 **多 Master（无salve）**  的优化，即使磁盘损坏，消息丢失的非常少，且消息实时性不会受影响，因为Master 宕机后，消费者仍然可以从 Slave 消费。（不需要人工干预，master挂了，消费者会自动找到 slave ）
+
+但是Master的宕机，在复制的过程中会导致丢失掉极少量的消息。
+
+### 4、多Master多Slave模式（同步双写）
+
+ 这种模式和上面类似，但在 写入的过程中，先写入master，master再写入slave，主从都写入成功了，再返回给应用。
+
+所以性能比异步复制模式略低，大约低 10%左右，但Master宕机情况下，消息无延迟，服务可用性与数据可用性都非常高。
+
+
+
+## 结论
+
+1. **多master（无slave）模式**是所有模式中性能最高的，但是存在当broker宕机，其未被消费的消息在节点恢复之前不可用，消息实时性受到影响；
+2. **多master多slave（异步复制）模式** master节点可读可写，但是slave只能读不能写，在master宕机时，消费者可以从slave中读取消息，消息实时性不会受到影响，但是可能会有消息丢失的问题；
+3. **多master多slave（同步双写）模式** 能保证数据不丢失，但是性能较低；
+
+> 要保证数据可靠，需采用 同步刷盘 和 同步双写 的方式，但性能会较其他方式低，可通过配置brokerRole和flushDiskType来实现数据可靠性；
+
+
 
