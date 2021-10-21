@@ -39,7 +39,7 @@ RocketMQ主要由 Producer、Broker、Consumer 三部分组成，其中Producer 
 
 #### Consumer
 
-消息消费的角色，支持分布式集群方式部署。支持以push推，pull拉两种模式对消息进行消费。同时也支持集群方式和广播方式的消费，它提供实时消息订阅机制，可以满足大多数用户的需求。
+消息消费的角色，支持分布式集群方式部署。支持以push推，pull拉两种模式对消息进行消费。同时也支持**集群方式**和**广播方式**的消费，它提供实时消息订阅机制，可以满足大多数用户的需求。
 
 客户端在同一 时间只会连接一台 nameserver，只有在连接出现异常时才会向尝试连接另外一台。客户端每隔 30s 向 Nameserver 发起 topic 的路由信息查询。
 
@@ -125,15 +125,23 @@ Consumer消费的一种类型，该模式下Broker收到数据后会主动推送
 
 ## 10 消费者组（Consumer Group）
 
-同一类Consumer的集合，这类Consumer通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。RocketMQ 支持两种消息模式：集群消费（Clustering）和广播消费（Broadcasting）。
+同一类Consumer的集合，这类Consumer通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。
+
+**要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。**
+
+RocketMQ 支持两种消息模式：`集群消费（Clustering）`和`广播消费（Broadcasting）`。
+
+
 
 ## 11 集群消费（Clustering）
 
-集群消费模式下,相同Consumer Group的每个Consumer实例平均分摊消息。
+集群消费模式下，相同Consumer Group的每个Consumer实例**平均分摊消息**。
 
 ## 12 广播消费（Broadcasting）
 
-广播消费模式下，相同Consumer Group的每个Consumer实例都接收全量的消息。
+广播消费模式下，相同Consumer Group的每个Consumer实例都接收**全量的消息**。
+
+
 
 ## 13 普通顺序消息（Normal Ordered Message）
 
@@ -343,7 +351,11 @@ public class Consumer {
 
 下面用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个OrderId获取到的肯定是同一个队列。
 
+### 2.1 顺序消息生产
 
+###  2.2顺序消费消息
+
+代码参考：https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md#22-%E9%A1%BA%E5%BA%8F%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF
 
 
 
@@ -402,6 +414,12 @@ broker挂掉需要根据不同的部署方式进行分析：
 3. **多master多slave（同步双写）模式** 能保证数据不丢失，但是性能较低；
 
 > 要保证数据可靠，需采用 同步刷盘 和 同步双写 的方式，但性能会较其他方式低，可通过配置brokerRole和flushDiskType来实现数据可靠性；
+
+
+
+# 7、实践问题
+
+## 1、生产者
 
 
 
