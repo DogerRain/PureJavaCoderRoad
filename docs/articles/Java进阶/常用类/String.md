@@ -8,7 +8,7 @@
 
 > 我本地为jdk1.8版本
 
-![final类、char[]数组](F:\笔记\docsifyLearnJavaToFindAJob\docs\articles\Java进阶\常用类\picture\image-20210120173256307.png)
+![final类、char[]数组](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202112image-20210120173256307.png)
 
 可以看到String是一个final修饰的类，所以String是一个不可变的类。
 
@@ -43,7 +43,7 @@ name1 = "HelloCoder";
 
 它在JVM运行区域是这样的：
 
-![](F:\笔记\docsifyLearnJavaToFindAJob\docs\articles\Java进阶\常用类\picture\image-20210121144951658.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202112image-20210121144951658.png)
 
 > JVM内存区域可以阅读：
 
@@ -142,7 +142,7 @@ false
 
 它的过程是这样的：
 
-![](F:\笔记\docsifyLearnJavaToFindAJob\docs\articles\Java进阶\常用类\picture\image-20210121150102127.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202112image-20210121150102127.png)
 
 1、`String name1 ="HaC";` 常量池没有找到**HaC**，所以新建一个值
 

@@ -1,10 +1,12 @@
 # Hello，Coder
 
+你好哇，打码的你。
+
 ## 絮&叨
 
 ### <font color=blue>PureJavaCoderRoad 是什么？</font>
 
-《Java小白之路》PureJavaCoderRoad 是一个帮助【Java小白】从入门到找到一份工作所需掌握的技能教程，对标目前企业招聘要求（一线12k）。 
+《Java小白之路》PureJavaCoderRoad 是一个帮助【Java小白】从入门到找到一份工作所需掌握的技能教程，对标目前企业招聘要求（大概是一线12k）。 
 
 本项目包含JavaSE、JavaEE（Spring、Mybatis、SpringCloud）、Mysql、Redis、Maven、Nginx、Linux服务器、Git、工具使用、算法 等基础教程。
 
@@ -22,6 +24,8 @@
 
 
 在这里，期待与各位共同进步。
+
+
 
 愿各位看完有收获，找到一份满意的工作。
 

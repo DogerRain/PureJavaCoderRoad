@@ -109,7 +109,7 @@ Welcome,Hello-HaC-HelloCoder!
 
 
 
-## String、StringBuffer、StringBuilder 区别 结
+## String、StringBuffer、StringBuilder 区别 
 
 `String` 是一个字符串常量，final修饰，当创建之后即不能更改，不可被继承，线程不安全，在做大量字符串拼接的时候效率低。
 
