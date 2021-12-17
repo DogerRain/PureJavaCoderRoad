@@ -15,6 +15,10 @@ Java中，是通过**流** 处理IO的，这种处理模式称为 **IO流**，IO
 
 ![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210129104236502.png)
 
+> 当然如果站在操作系统的来看，又涉及到用户态、内核态，这里就不聊了。
+>
+> 还有就是阻塞、非阻塞 IO、IO多路复用，可以看我之前写的：[https://learnjava.baimuxym.cn/#/articles\Java%E5%9F%BA%E7%A1%80\IO%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F](https://learnjava.baimuxym.cn/#/articles\Java%E5%9F%BA%E7%A1%80\IO%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F)
+
 ### 1.1、流的特点：
 
 1. 先进先出：最先写入输出流的数据最先被输入流读取到。
@@ -428,9 +432,8 @@ public class ReaderTest {
 **1、流转换**
 
 ```java
-//        Writer fileWriter = new BufferedWriter(new OutputStreamWriter(
-
-//                new FileOutputStream("F:\\Hello1.txt"), StandardCharsets.UTF_8));
+Writer fileWriter = new BufferedWriter(new OutputStreamWriter(
+	 new FileOutputStream("F:\\Hello1.txt"), StandardCharsets.UTF_8));
 ```
 
 这里其实是把字节流转换为字符流，用来解决乱码。
@@ -724,4 +727,3 @@ Java的IO有一个 缓冲区 的概念，不是Buffer概念的缓冲区。
 > https://blog.csdn.net/mu_wind/article/details/108674284
 >
 > https://blog.csdn.net/sinat_37064286/article/details/86537354
-
