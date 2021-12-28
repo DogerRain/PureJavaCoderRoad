@@ -76,10 +76,8 @@ DelayQueue是一个延迟队列，无界，队列中每个元素都有过期时�
 
 
 
-
+---
 
 参考：
 
-【细谈Java并发】谈谈LinkedBlockingQueue：
-
-[https://blog.csdn.net/tonywu1992/article/details/83419448](https://blog.csdn.net/tonywu1992/article/details/83419448)
+- 【细谈Java并发】谈谈LinkedBlockingQueue：[https://blog.csdn.net/tonywu1992/article/details/83419448](https://blog.csdn.net/tonywu1992/article/details/83419448)
