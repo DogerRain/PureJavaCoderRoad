@@ -140,3 +140,12 @@ jvisualvm 也在 JDK 的 bin 目录。
 
 jstack 通过找到类入口，再找出当前线程正在等待哪个线程，然后再定位到死锁的行数。
 
+
+
+
+
+参考：
+
+- [https://learnjava.baimuxym.cn](https://learnjava.baimuxym.cn)
+
+- [https://rain.baimuxym.cn/article/5](https://rain.baimuxym.cn/article/5)
