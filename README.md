@@ -43,10 +43,12 @@
 
 ## 更新时间线
 
-| 版本 | 时间       | 更新内容                              |
-| ---- | ---------- | ------------------------------------- |
-| 1.0  | 2021-01-01 | 第一次发布，只有Java基础知识          |
-| 2.0  | 2021-03-01 | 加入Java进阶内容，包含IO、多线程、JVM |
+| 版本 | 时间       | 更新内容                          |
+| ---- | ---------- | --------------------------------- |
+| 1.0  | 2021-01-01 | 第一次发布，只有Java基础知识      |
+| 2.0  | 2021-03-01 | Java进阶内容，包含IO、多线程、JVM |
+| 2.1  | 2021-07-01 | Linux、MySQL                      |
+| 2.2  | 2022-03-01 | 开发工具、NGINX、Redis、架构      |
 
 
 
@@ -68,39 +70,26 @@
 
 ### 2、博客联系我
 
-http://rain.baimuxym.cn/
+- http://rain.baimuxym.cn 欢迎来玩，交个两毛钱的朋友。
 
-一个搬砖的技术人，欢迎来闲逛。
+
 
 
 
 ## 在线阅读地址：
 
-> 第一次打开有点慢，请耐心等待
-
-服务器端：[https://purejava.baimuxym.cn/](https://purejava.baimuxym.cn/) 
-
-GitHub Pages：[https://dogerrain.github.io/PureJavaCoderRoad/#/](https://dogerrain.github.io/PureJavaCoderRoad/#/)
-
-Gittee Pages ：[https://rainyudianxx.gitee.io/purejavacoderroad/#/](https://rainyudianxx.gitee.io/purejavacoderroad/#/)（国内访问快）
-
-> 以上三个都是一样的，Gittee内容更新会慢一点
+- [https://purejava.baimuxym.cn/](https://purejava.baimuxym.cn/)
 
 
 
 ---
 ## 友情链接
-- 一个高质量的Java面试题收集文档
+- [LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob)  作者本人求职面试的过程+面试题目
 
-  [LearnJavaToFindAJob](https://github.com/DogerRain/LearnJavaToFindAJob) 
-  
-- 一个收集计算机资源的合集
-
-  [awesome-programming-resources](https://github.com/DogerRain/awesome-programming-resources)
+- [awesome-programming-resources ](https://github.com/DogerRain/awesome-programming-resources)一个收集开源计算机资源的合集
 
 最后，求点一个 star :star: 奥利给，老铁们。
 
-> 最后更新时间：2021年5月9日 19:38:51
-
+> 最后更新时间：2022年3月29日 16:01:14
 
 
