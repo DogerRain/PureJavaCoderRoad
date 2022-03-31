@@ -81,7 +81,7 @@
 
 ### 2、博客联系我
 
-- http://rain.baimuxym.cn 欢迎来玩，交个两毛钱的朋友。
+- [http://rain.baimuxym.cn](http://rain.baimuxym.cn) 欢迎来玩，交个两毛钱的朋友。
 
 
 
