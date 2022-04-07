@@ -1,3 +1,7 @@
+本文篇幅较长，醋酸菌本人例举了多个demo的代码例子，相信各位静下心看完会有不错的收获。
+
+
+
 《深入理解Java虚拟机》一句话：
 
 >当多个线程访问同一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替运行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获取正确的结果，那这个对象是线程安全的。
@@ -628,7 +632,7 @@ Mark Word 在 32 位系统和在64位的系统中不一样的。
 
 64位的 Mark Word 标记位：
 
-![](https://img-blog.csdnimg.cn/20190111091608949.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdWR1bl9jb29s,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20190111091608949.jpg)
 
 ### 偏向锁：
 

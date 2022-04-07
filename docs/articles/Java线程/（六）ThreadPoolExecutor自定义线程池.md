@@ -296,12 +296,7 @@ RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.Calle
 
 推荐阅读：
 
-1. ThreadPoolExecutor的常见的队列到底能够存放多少任务：
-   [https://zhuanlan.zhihu.com/p/97485729](https://zhuanlan.zhihu.com/p/97485729)
-
-2. 浅谈Java并发编程系列（六） —— 线程池的使用：
-   [https://segmentfault.com/a/1190000006998440](https://segmentfault.com/a/1190000006998440)
-
-3. Java并发编程：线程池的使用：
-[https://www.cnblogs.com/dolphin0520/p/3932921.html](https://www.cnblogs.com/dolphin0520/p/3932921.html)
+1. ThreadPoolExecutor的常见的队列到底能够存放多少任务：[https://zhuanlan.zhihu.com/p/97485729](https://zhuanlan.zhihu.com/p/97485729)
+2. 浅谈Java并发编程系列（六） —— 线程池的使用：[https://segmentfault.com/a/1190000006998440](https://segmentfault.com/a/1190000006998440)
+3. Java并发编程：线程池的使用：[https://www.cnblogs.com/dolphin0520/p/3932921.html](https://www.cnblogs.com/dolphin0520/p/3932921.html)
 

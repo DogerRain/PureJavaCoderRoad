@@ -91,7 +91,7 @@ public class FairReentrantLock {
 
 输出：
 
-![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210205092256711.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202204/image-20210205092256711.png)
 
 可以看到非公平锁，几乎是一个线程同时获取锁后再到下一个线程执行。
 
@@ -105,7 +105,7 @@ public class FairReentrantLock {
 static Lock lock = new ReentrantLock(true);
 ```
 
-![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210205092133132.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202204/image-20210205092133132.png)
 
 可以看到，看起来就有那么一点打乱的顺序，系统会公平地分配资源给每个线程，而不是一个线程一直霸占着，线程几乎是轮流的获取到了锁。
 
@@ -200,7 +200,7 @@ public class ReentrantLockDeadLock {
 
 以上这两个例子都会发生死锁，它们的资源竞争是这样的：
 
-![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210205142952344.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202204/image-20210205142952344.png)
 
 Thread1线程执行，首先获取lockA资源，上锁，然后休眠2秒...
 
@@ -268,7 +268,7 @@ public class ReentrantLockDeadLock {
 
 结果：
 
-![](https://blog-1253198264.cos.ap-guangzhou.myqcloud.com/image-20210205144158831.png)
+![](https://cdn.jsdelivr.net/gh/DogerRain/image@main/img-202204/image-20210205144158831.png)
 
 程序在休眠5秒后，假如`Thread.activeCount() >= 4`，主线程、守护线程、Thread1、Thread2 四个都在， 表示死锁发生了。
 

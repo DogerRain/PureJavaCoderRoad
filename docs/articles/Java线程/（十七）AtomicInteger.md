@@ -128,7 +128,7 @@ public class AtomicIntegerTest extends Thread {
 
 原子类一览图参考如下：
 
-![](https://img-blog.csdnimg.cn/20200212180741122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZhbnJlbnhpYW5n,size_16,color_FFFFFF,t_70)
+![](https://img-blog.csdnimg.cn/20200212180741122.png)
 
 上面例子用到的是`AtomicInteger`，还有其他场景的数据要求也可以使用合适的原子类。
 
@@ -198,7 +198,7 @@ public class LongAdderTest implements Runnable {
 
 每次add()都需要同步，在高并发时会有比较多冲突，比较耗时导致效率低；而LongAdder中每个线程会维护自己的一个计数器，在最后执行LongAdder.sum()方法时候才需要同步，把所有计数器全部加起来，不需要flush和refresh操作。
 
-
+---
 
 参考：
 
